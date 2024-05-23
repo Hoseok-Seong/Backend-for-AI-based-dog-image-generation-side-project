@@ -1,5 +1,6 @@
 package com.example.puppicasso.user.service;
 
+import com.example.puppicasso.global.security.MyUserDetails;
 import com.example.puppicasso.user.dto.UserJoinReq;
 import com.example.puppicasso.user.dto.UserJoinResp;
 import com.example.puppicasso.user.entity.User;
@@ -16,7 +17,7 @@ import java.util.Optional;
 public class MainService {
 
     @Transactional
-    public ResponseEntity<?> main() {
+    public ResponseEntity<?> getMainScreenData(MyUserDetails myUserDetails) {
         return ResponseEntity.ok().body("");
     }
 }

@@ -15,7 +15,7 @@ public class MainController {
     private final MainService mainService;
 
     @PostMapping("/main")
-    public ResponseEntity<?> login(@AuthenticationPrincipal MyUserDetails myUserDetails) {
-        return ResponseEntity.ok(mainService.main());
+    public ResponseEntity<?> mainScreen(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+        return ResponseEntity.ok(mainService.getMainScreenData(myUserDetails));
     }
 }
