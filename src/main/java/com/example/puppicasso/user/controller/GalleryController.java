@@ -11,11 +11,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class GalleryController {
-
-    private final MainService mainService;
-
-    @PostMapping("/main")
-    public ResponseEntity<?> mainScreen(@AuthenticationPrincipal MyUserDetails myUserDetails) {
-        return ResponseEntity.ok(mainService.getMainScreenData(myUserDetails));
-    }
 }

@@ -26,8 +26,10 @@ public class User extends BaseTimeEntity {
     private String username;
     @Column(nullable = false)
     private String password;
+    private String email;
     @Enumerated(EnumType.STRING)
     private Role role;
+    private String isBlocked;
 
     @Builder
     public User(Long id, String username, String password) {
@@ -35,6 +37,8 @@ public class User extends BaseTimeEntity {
         this.username = username;
         this.password = password;
         this.role = Role.USER;
+        this.email = username;
+        this.isBlocked = "N";
     }
 
     public void updatePassword(String password) {
