@@ -1,0 +1,44 @@
+package com.example.puppicasso.domain.subscription.entity;
+
+import com.example.puppicasso.global.entity.BaseTimeEntity;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+
+@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+@Table(name = "subscription")
+public class Subscription extends BaseTimeEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String type;
+
+    @Column(nullable = false)
+    private double price;
+
+    @Column(nullable = false)
+    private int maxGenerateCount;
+
+    @Column(nullable = false)
+    private int usedGenerateCount;
+
+    private LocalDateTime expirationDate;
+
+    @Builder
+    public Subscription(Long id, String type, double price, int maxGenerateCount, int usedGenerateCount, LocalDateTime expirationDate) {
+        this.id = id;
+        this.type = type;
+        this.price = price;
+        this.maxGenerateCount = maxGenerateCount;
+        this.usedGenerateCount = usedGenerateCount;
+        this.expirationDate = expirationDate;
+    }
+}

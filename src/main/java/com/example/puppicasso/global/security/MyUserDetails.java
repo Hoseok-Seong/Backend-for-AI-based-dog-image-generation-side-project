@@ -1,6 +1,6 @@
 package com.example.puppicasso.global.security;
 
-import com.example.puppicasso.user.entity.User;
+import com.example.puppicasso.domain.user.entity.User;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

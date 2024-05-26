@@ -1,7 +1,7 @@
 package com.example.puppicasso.global.jwt;
 
 import java.util.Date;
-import com.example.puppicasso.user.entity.User;
+import com.example.puppicasso.domain.user.entity.User;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.SignatureVerificationException;

@@ -1,7 +1,7 @@
 package com.example.puppicasso.global.security;
 
-import com.example.puppicasso.user.entity.User;
-import com.example.puppicasso.user.repository.UserRepository;
+import com.example.puppicasso.domain.user.entity.User;
+import com.example.puppicasso.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
