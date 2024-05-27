@@ -11,5 +11,5 @@ public enum Grade {
     VIP("GRADE_VIP", "VIP회원");
 
     private final String key;
-    private final String title;
+    private final String name;
 }

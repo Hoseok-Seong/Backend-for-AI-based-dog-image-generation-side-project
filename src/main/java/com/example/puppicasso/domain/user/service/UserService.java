@@ -82,6 +82,7 @@ public class UserService {
 
             // Welcome 쿠폰(Subscription) 생성
             Subscription welcomeSubscription = Subscription.builder()
+                    .userId(user.getId())
                     .type(Type.WELCOME)
                     .build();
 
@@ -92,7 +93,6 @@ public class UserService {
                     .userId(user.getId())
                     .profilePic(null)
                     .grade(Grade.BASIC)
-                    .subscriptionId(subscription.getId())
                     .build();
 
             userInfoRepository.save(userInfo);

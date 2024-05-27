@@ -1,4 +1,4 @@
-package com.example.puppicasso.domain.user.service;
+package com.example.puppicasso.domain.gallery.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
