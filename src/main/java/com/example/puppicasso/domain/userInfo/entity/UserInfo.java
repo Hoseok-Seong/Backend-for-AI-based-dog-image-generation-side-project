@@ -23,13 +23,14 @@ public class UserInfo extends BaseTimeEntity {
     @Column(name = "profile_pic")
     private byte[] profilePic;
 
-    private String grade;
+    @Enumerated(EnumType.STRING)
+    private Grade grade;
 
     @Column(name = "subscription_id")
     private Long subscriptionId;
 
     @Builder
-    public UserInfo(Long id, Long userId, byte[] profilePic, String grade, Long subscriptionId) {
+    public UserInfo(Long id, Long userId, byte[] profilePic, Grade grade, Long subscriptionId) {
         this.id = id;
         this.userId = userId;
         this.profilePic = profilePic;

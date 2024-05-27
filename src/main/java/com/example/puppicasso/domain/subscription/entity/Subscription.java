@@ -19,7 +19,8 @@ public class Subscription extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private Type type;
 
     @Column(nullable = false)
     private double price;
@@ -33,12 +34,12 @@ public class Subscription extends BaseTimeEntity {
     private LocalDateTime expirationDate;
 
     @Builder
-    public Subscription(Long id, String type, double price, int maxGenerateCount, int usedGenerateCount, LocalDateTime expirationDate) {
+    public Subscription(Long id, Type type) {
         this.id = id;
         this.type = type;
-        this.price = price;
-        this.maxGenerateCount = maxGenerateCount;
-        this.usedGenerateCount = usedGenerateCount;
-        this.expirationDate = expirationDate;
+        this.price = type.getPrice();
+        this.maxGenerateCount = type.getMaxGenerateCount();
+        this.usedGenerateCount = type.getUsedGenerateCount();
+        this.expirationDate = type.getExpirationDate();
     }
 }

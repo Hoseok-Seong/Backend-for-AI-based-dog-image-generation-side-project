@@ -1,7 +1,15 @@
 package com.example.puppicasso.domain.user.service;
 
+import com.example.puppicasso.domain.gallery.entity.Gallery;
+import com.example.puppicasso.domain.gallery.repository.GalleryRepository;
+import com.example.puppicasso.domain.subscription.entity.Subscription;
+import com.example.puppicasso.domain.subscription.entity.Type;
+import com.example.puppicasso.domain.subscription.repository.SubscriptionRepository;
 import com.example.puppicasso.domain.user.repository.RefreshTokenRedisRepository;
 import com.example.puppicasso.domain.user.repository.UserRepository;
+import com.example.puppicasso.domain.userInfo.entity.Grade;
+import com.example.puppicasso.domain.userInfo.entity.UserInfo;
+import com.example.puppicasso.domain.userInfo.repository.UserInfoRepository;
 import com.example.puppicasso.global.jwt.JwtProvider;
 import com.example.puppicasso.global.security.MyUserDetails;
 import com.example.puppicasso.domain.user.dto.RefreshTokenRedisReq;
@@ -26,6 +34,9 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     private final RefreshTokenRedisRepository refreshTokenRedisRepository;
+    private final UserInfoRepository userInfoRepository;
+    private final SubscriptionRepository subscriptionRepository;
+    private final GalleryRepository galleryRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private static final Long REFRESH_TOKEN_EXP = Long.parseLong(System.getenv("JWT_REFRESH_TOKEN_EXP"));
 
@@ -68,6 +79,24 @@ public class UserService {
 
         try {
             User user = userRepository.save(userJoinReq.toEntity());
+
+            // Welcome 쿠폰(Subscription) 생성
+            Subscription welcomeSubscription = Subscription.builder()
+                    .type(Type.WELCOME)
+                    .build();
+
+            Subscription subscription = subscriptionRepository.save(welcomeSubscription);
+
+            // UserInfo 생성
+            UserInfo userInfo = UserInfo.builder()
+                    .userId(user.getId())
+                    .profilePic(null)
+                    .grade(Grade.BASIC)
+                    .subscriptionId(subscription.getId())
+                    .build();
+
+            userInfoRepository.save(userInfo);
+
             return ResponseEntity.ok().body(new UserJoinResp(user));
         } catch (Exception e) {
             throw new RuntimeException("회원가입 로직 실패");
