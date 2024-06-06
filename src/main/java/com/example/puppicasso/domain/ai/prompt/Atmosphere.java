@@ -1,11 +1,11 @@
 package com.example.puppicasso.domain.ai.prompt;
 
 public enum Atmosphere {
-    WARM("A heartwarming portrait of a dog, capturing a warm and cozy atmosphere with soft lighting."),
-    CALM("A serene portrait of a dog, emphasizing a calm and peaceful mood with muted colors."),
-    ENERGETIC("A vibrant portrait of a dog, full of energy and excitement, with bright colors and dynamic poses."),
-    CUTE("An adorable portrait of a dog, highlighting its cuteness with playful props and endearing expressions."),
-    PLAYFUL("A playful portrait of a dog, showcasing its mischievous and fun-loving nature with interactive elements.");
+    WARM("capturing a warm and cozy atmosphere with soft, diffused lighting that enhances the dog's fur texture and natural colors."),
+    CALM("emphasizing a calm and peaceful mood with muted, soft colors and even lighting that highlights the dog's natural beauty."),
+    ENERGETIC("full of energy and excitement with bright, vivid colors and natural lighting that enhances the dog's dynamic pose and vibrant personality."),
+    CUTE("highlighting its cuteness with playful props like hats or toys and endearing expressions."),
+    PLAYFUL("showcasing its playful nature with interactive elements like toys or vintage decor.");
 
     private final String prompt;
 
