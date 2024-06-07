@@ -1,5 +1,6 @@
 package com.example.puppicasso.domain.ai.controller;
 
+import com.example.puppicasso.domain.ai.dto.AIImageReq;
 import com.example.puppicasso.domain.ai.prompt.Atmosphere;
 import com.example.puppicasso.domain.ai.prompt.StudioConcept;
 import com.example.puppicasso.domain.ai.service.AIService;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,8 +28,8 @@ public class AIController {
 
     private final AIService aiService;
 
-    @PostMapping("/api/AIPictures")
-    public ResponseEntity<?> generateAIPictures(@AuthenticationPrincipal MyUserDetails myUserDetails,
+    @PostMapping("/api/OpenAI/Images")
+    public ResponseEntity<?> generateOpenAIImages(@AuthenticationPrincipal MyUserDetails myUserDetails,
                                                 @RequestParam("image") MultipartFile file,
                                                 @RequestParam("atmosphere") String atmosphereName,
                                                 @RequestParam("studio") String studioName) {
@@ -65,9 +67,9 @@ public class AIController {
             }
 
             // 프롬프트 생성
-            String prompt = PromptUtil.generatePrompt(atmosphere, studio);
+            String prompt = PromptUtil.generateOpenAIPrompt(atmosphere, studio);
 
-            String response = aiService.generateAIPictures(tempFile, prompt);
+            String response = aiService.generateOpenAIImages(tempFile, prompt);
 
             // 임시 파일 삭제
             tempFile.delete();
@@ -76,5 +78,11 @@ public class AIController {
             e.printStackTrace();
             return ResponseEntity.status(500).body("Image upload failed");
         }
+    }
+
+    @PostMapping("/api/ModelsLab/Images")
+    public ResponseEntity<?> generateModelsLabImages(@AuthenticationPrincipal MyUserDetails myUserDetails,
+                                                     @RequestBody AIImageReq aiImageReq) {
+        return ResponseEntity.ok().body("ok");
     }
 }

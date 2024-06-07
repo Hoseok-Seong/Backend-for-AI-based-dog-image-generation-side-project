@@ -4,7 +4,7 @@ import com.example.puppicasso.domain.ai.prompt.Atmosphere;
 import com.example.puppicasso.domain.ai.prompt.StudioConcept;
 
 public class PromptUtil {
-    public static String generatePrompt(Atmosphere atmosphere, StudioConcept studio) {
+    public static String generateOpenAIPrompt(Atmosphere atmosphere, StudioConcept studio) {
         String promptTemplate = "Edit the provided image to generate a %s, high-resolution portrait of the dog. "
                 + "Remove the existing background and replace it with a setting that matches %s. "
                 + "Ensure the dog in the edited image matches the provided image exactly, including all features (fur color, eye color, body shape, nose, eyes, mouth, ears). "
