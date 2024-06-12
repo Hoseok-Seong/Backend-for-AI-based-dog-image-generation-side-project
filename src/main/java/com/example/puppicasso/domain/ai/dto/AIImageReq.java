@@ -1,5 +1,6 @@
 package com.example.puppicasso.domain.ai.dto;
 
+import com.example.puppicasso.domain.ai.prompt.DogAttributes;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,29 +10,22 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class AIImageReq {
-    private String model;
-    private String size;
-    private Integer n;
-
     // 강아지 특성
-    private String breed;
-    private String sizeDesc;
-    private String coatLength;
-    private String coatColor;
-    private String furTexture;
-    private String eyeColor;
-    private String earShape;
-    private String noseShape;
-    private String faceShape;
-    private String tailShape;
-    private String expression;
-    private String pose;
+    private DogAttributes breed;
+    private DogAttributes sizeDesc;
+    private DogAttributes coatLength;
+    private DogAttributes coatColor;
+    private DogAttributes furTexture;
+    private DogAttributes eyeColor;
+    private DogAttributes earShape;
+    private DogAttributes noseShape;
+    private DogAttributes faceShape;
+    private DogAttributes tailShape;
+    private DogAttributes expression;
+    private DogAttributes pose;
 
     @Builder
-    AIImageReq(String model, String size, Integer n, String breed, String sizeDesc, String coatLength, String coatColor, String furTexture, String eyeColor, String earShape, String noseShape, String faceShape, String tailShape, String expression, String pose) {
-        this.model = model;
-        this.size = size;
-        this.n = n;
+    AIImageReq(DogAttributes breed, DogAttributes sizeDesc, DogAttributes coatLength, DogAttributes coatColor, DogAttributes furTexture, DogAttributes eyeColor, DogAttributes earShape, DogAttributes noseShape, DogAttributes faceShape, DogAttributes tailShape, DogAttributes expression, DogAttributes pose) {
         this.breed = breed;
         this.sizeDesc = sizeDesc;
         this.coatLength = coatLength;

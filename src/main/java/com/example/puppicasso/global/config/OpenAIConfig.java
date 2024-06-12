@@ -16,13 +16,13 @@ public class OpenAIConfig {
     private static final String secretKey = System.getenv("PUPPICASSO_API_KEY");
 
     @Bean
-    public RestTemplate restTemplate() {
+    public RestTemplate openAIRestTemplate() {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate;
     }
 
     @Bean
-    public HttpHeaders httpHeaders() {
+    public HttpHeaders openAIHttpHeaders() {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + secretKey);
         return headers;

@@ -4,6 +4,7 @@ import com.example.puppicasso.domain.ai.dto.AIImageReq;
 import com.example.puppicasso.domain.ai.prompt.Atmosphere;
 import com.example.puppicasso.domain.ai.prompt.StudioConcept;
 import com.example.puppicasso.domain.ai.service.AIService;
+import com.example.puppicasso.domain.ai.service.FileService;
 import com.example.puppicasso.domain.ai.util.PictureEditUtil;
 import com.example.puppicasso.domain.ai.util.PromptUtil;
 import com.example.puppicasso.global.security.MyUserDetails;
@@ -13,6 +14,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,6 +29,7 @@ import java.util.Objects;
 public class AIController {
 
     private final AIService aiService;
+    private final FileService fileService;
 
     @PostMapping("/api/OpenAI/Images")
     public ResponseEntity<?> generateOpenAIImages(@AuthenticationPrincipal MyUserDetails myUserDetails,
@@ -77,12 +80,40 @@ public class AIController {
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.status(500).body("Image upload failed");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Request to external API failed");
         }
     }
 
     @PostMapping("/api/ModelsLab/Images")
     public ResponseEntity<?> generateModelsLabImages(@AuthenticationPrincipal MyUserDetails myUserDetails,
-                                                     @RequestBody AIImageReq aiImageReq) {
-        return ResponseEntity.ok().body("ok");
+                                                     @RequestPart("image") MultipartFile file,
+                                                     @RequestPart("details") AIImageReq aiImageReq) {
+        try {
+            // 파일 크기 검사 (4MB 이하)
+            if (file.getSize() > 4 * 1024 * 1024) {
+                return ResponseEntity.badRequest().body("Image must be less than 4MB.");
+            }
+
+            // 이미지 파일을 서버에 저장하고 URL을 생성
+            String filePath = fileService.saveFile(file);
+            String imageUrl = fileService.getFileUrl(filePath);
+
+            // 프롬프트 생성
+            String prompt = PromptUtil.generateModelsLabPrompt(aiImageReq);
+
+            String response = aiService.generateModelsLabImages(imageUrl, prompt);
+
+            // 파일 삭제
+            fileService.deleteFile(filePath);
+            return ResponseEntity.ok().body(response);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Image upload failed");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Request to external API failed");
+        }
     }
 }

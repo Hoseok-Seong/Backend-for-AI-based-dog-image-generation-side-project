@@ -10,14 +10,18 @@ public class ModelsLabConfig {
     private static final String secretKey = System.getenv("PUPPICASSO_MODELSLAB_KEY");
 
     @Bean
-    public RestTemplate restTemplate() {
+    public RestTemplate modelsLabRestTemplate() {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate;
     }
 
     @Bean
-    public HttpHeaders httpHeaders() {
+    public HttpHeaders modelsLabHttpHeaders() {
         HttpHeaders headers = new HttpHeaders();
         return headers;
+    }
+
+    public String getSecretKey() {
+        return secretKey;
     }
 }
