@@ -23,7 +23,8 @@ public class Gallery extends BaseTimeEntity {
     private String name;
 
     @Column(nullable = false)
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private Type type;
 
     @Lob
     @Column(nullable = false)
@@ -33,7 +34,7 @@ public class Gallery extends BaseTimeEntity {
     private Boolean isDeleted;
 
     @Builder
-    public Gallery(Long id, Long userId, String name, String type, byte[] data) {
+    public Gallery(Long id, Long userId, String name, Type type, byte[] data) {
         this.id = id;
         this.userId = userId;
         this.name = name;

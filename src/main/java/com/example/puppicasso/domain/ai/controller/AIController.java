@@ -5,8 +5,13 @@ import com.example.puppicasso.domain.ai.prompt.Atmosphere;
 import com.example.puppicasso.domain.ai.prompt.StudioConcept;
 import com.example.puppicasso.domain.ai.service.AIService;
 import com.example.puppicasso.domain.ai.service.FileService;
+import com.example.puppicasso.domain.ai.util.ImageUtil;
+import com.example.puppicasso.domain.ai.util.JsonUtil;
 import com.example.puppicasso.domain.ai.util.PictureEditUtil;
 import com.example.puppicasso.domain.ai.util.PromptUtil;
+import com.example.puppicasso.domain.gallery.entity.Gallery;
+import com.example.puppicasso.domain.gallery.entity.Type;
+import com.example.puppicasso.domain.gallery.repository.GalleryRepository;
 import com.example.puppicasso.global.security.MyUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +35,7 @@ public class AIController {
 
     private final AIService aiService;
     private final FileService fileService;
+    private final GalleryRepository galleryRepository;
 
     @PostMapping("/api/OpenAI/Images")
     public ResponseEntity<?> generateOpenAIImages(@AuthenticationPrincipal MyUserDetails myUserDetails,
@@ -105,8 +111,29 @@ public class AIController {
 
             String response = aiService.generateModelsLabImages(imageUrl, prompt);
 
+            // JSON 응답에서 이미지 URL 추출
+            String generatedImageUrl = JsonUtil.extractImageUrl(response);
+
+            // 이미지 이름 생성
+            String imageName = ImageUtil.generateUniqueFileName(myUserDetails.getUser().getId());
+
+            // 생성된 이미지 byte 코드로 변환
+            byte[] imageData = ImageUtil.downloadImageAsBase64(generatedImageUrl);
+
+            // Gallery 생성
+            Gallery gallery = Gallery.builder()
+                    .userId(myUserDetails.getUser().getId())
+                    .name(imageName)
+                    .type(Type.AI_GENERATED)
+                    .data(imageData)
+                    .build();
+            
+            // DB에 저장
+            galleryRepository.save(gallery);
+
             // 파일 삭제
             fileService.deleteFile(filePath);
+
             return ResponseEntity.ok().body(response);
         } catch (IOException e) {
             e.printStackTrace();
