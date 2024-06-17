@@ -1,6 +1,7 @@
 package com.example.puppicasso.domain.ai.controller;
 
 import com.example.puppicasso.domain.ai.dto.AIImageReq;
+import com.example.puppicasso.domain.ai.dto.AIImageResp;
 import com.example.puppicasso.domain.ai.prompt.Atmosphere;
 import com.example.puppicasso.domain.ai.prompt.StudioConcept;
 import com.example.puppicasso.domain.ai.service.AIService;
@@ -134,7 +135,7 @@ public class AIController {
             // 파일 삭제
             fileService.deleteFile(filePath);
 
-            return ResponseEntity.ok().body(response);
+            return ResponseEntity.ok().body(new AIImageResp(gallery, generatedImageUrl));
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.status(500).body("Image upload failed");

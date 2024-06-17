@@ -9,6 +9,8 @@ import com.example.puppicasso.domain.userInfo.entity.UserInfo;
 import com.example.puppicasso.domain.userInfo.repository.UserInfoRepository;
 import com.example.puppicasso.global.security.MyUserDetails;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +30,9 @@ public class MainService {
 
         UserInfo userInfo = userInfoRepository.findByUserId(myUserDetails.getUser().getId());
         Subscription subscription = subscriptionRepository.findTopByUserIdOrderByPriceDesc(myUserDetails.getUser().getId());
-        List<Gallery> galleries = galleryRepository.findByUserId(myUserDetails.getUser().getId());
+
+        Pageable pageable = PageRequest.of(0, 5); // 첫 번째 페이지에서 5개의 결과를 가져옴
+        List<Gallery> galleries = galleryRepository.findByUserIdOrderByCreatedDateDesc(myUserDetails.getUser().getId(), pageable);
 
         return ResponseEntity.ok().body(new MainScreenResp(userInfo, subscription, galleries));
     }
