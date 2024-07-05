@@ -20,12 +20,12 @@ public class PromptUtil {
 
     public static String generateModelsLabPrompt(AIImageReq details) {
         return "Change the background of the dog in this photo to look like it was taken in a modern studio. The dog is a "
-                + details.getSizeDesc().getDescription() + " " + details.getBreed().getDescription() + " with a "
-                + details.getCoatLength().getDescription() + ", " + details.getCoatColor().getDescription() + " coat. Its fur is "
-                + details.getFurTexture().getDescription() + ", and it has " + details.getEyeColor().getDescription() + " eyes. The dog's ears are "
-                + details.getEarShape().getDescription() + ", and it has a " + details.getNoseShape().getDescription() + " nose and a "
-                + details.getFaceShape().getDescription() + " face. Its tail is " + details.getTailShape().getDescription() + ". The dog appears "
-                + details.getExpression().getDescription() + " and is " + details.getPose().getDescription() + ".";
+                + details.getSizeDesc() + " " + details.getBreed() + " with a "
+                + details.getCoatLength() + ", " + details.getCoatColor() + " coat. Its fur is "
+                + details.getFurTexture() + ", and it has " + details.getEyeColor() + " eyes. The dog's ears are "
+                + details.getEarShape() + ", and it has a " + details.getNoseShape() + " nose and a "
+                + details.getFaceShape() + " face. Its tail is " + details.getTailShape() + ". The dog appears "
+                + details.getExpression() + " and is " + details.getPose() + ".";
     }
 }
 

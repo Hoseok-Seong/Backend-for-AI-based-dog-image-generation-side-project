@@ -1,81 +1,78 @@
 package com.example.puppicasso.domain.ai.prompt;
 
 public enum DogAttributes {
-    // Breed
-    BREED_JINDO("Jindo"),
-    BREED_GOLDEN_RETRIEVER("Golden Retriever"),
-    BREED_BULLDOG("Bulldog"),
-    BREED_POODLE("Poodle"),
 
     // Size Description
-    SIZE_SMALL("Small"),
-    SIZE_MEDIUM("Medium"),
-    SIZE_LARGE("Large"),
+    SIZE_SMALL("Small", "소형"),
+    SIZE_MEDIUM("Medium", "중형"),
+    SIZE_LARGE("Large", "대형"),
 
     // Coat Length
-    COAT_SHORT("Short-length"),
-    COAT_MEDIUM("Medium-length"),
-    COAT_LONG("Long-length"),
-
-    // Coat Color
-    COAT_WHITE("White"),
-    COAT_BLACK("Black"),
-    COAT_BROWN("Brown"),
-    COAT_GOLDEN("Golden"),
+    COAT_SHORT("Short-length", "짧은 털"),
+    COAT_MEDIUM("Medium-length", "중간 털"),
+    COAT_LONG("Long-length", "긴 털"),
 
     // Fur Texture
-    FUR_SMOOTH("Smooth"),
-    FUR_STRAIGHT("Straight"),
-    FUR_WAVY("Wavy"),
-    FUR_CURLY("Curly"),
+    FUR_SMOOTH("Smooth", "매끄러운"),
+    FUR_STRAIGHT("Straight", "곧은"),
+    FUR_WAVY("Wavy", "물결 모양"),
+    FUR_CURLY("Curly", "곱슬곱슬한"),
 
     // Eye Color
-    EYE_BROWN("Brown"),
-    EYE_BLUE("Blue"),
-    EYE_GREEN("Green"),
-    EYE_AMBER("Amber"),
+    EYE_BROWN("Brown", "갈색"),
+    EYE_BLUE("Blue", "파란색"),
+    EYE_GREEN("Green", "녹색"),
+    EYE_AMBER("Amber", "호박색"),
 
     // Ear Shape
-    EAR_TRIANGULAR("Triangular"),
-    EAR_ROUND("Round"),
-    EAR_DROOPY("Droopy"),
-    EAR_POINTED("Pointed"),
+    EAR_TRIANGULAR("Triangular", "삼각형"),
+    EAR_ROUND("Round", "둥근"),
+    EAR_DROOPY("Droopy", "처진"),
+    EAR_POINTED("Pointed", "뾰족한"),
 
     // Nose Shape
-    NOSE_LONG("Long"),
-    NOSE_SHORT("Short"),
-    NOSE_FLAT("Flat"),
+    NOSE_LONG("Long", "긴"),
+    NOSE_SHORT("Short", "짧은"),
+    NOSE_FLAT("Flat", "평평한"),
 
     // Face Shape
-    FACE_LONG("Long"),
-    FACE_ROUND("Round"),
-    FACE_SQUARE("Square"),
+    FACE_LONG("Long", "긴"),
+    FACE_ROUND("Round", "둥근"),
+    FACE_SQUARE("Square", "네모난"),
 
     // Tail Shape
-    TAIL_CURLED("Curled"),
-    TAIL_STRAIGHT("Straight"),
-    TAIL_BUSHY("Bushy"),
+    TAIL_CURLED("Curled", "말린"),
+    TAIL_STRAIGHT("Straight", "곧은"),
+    TAIL_BUSHY("Bushy", "털이 많은"),
 
     // Expression
-    EXPRESSION_HAPPY("Happy"),
-    EXPRESSION_SAD("Sad"),
-    EXPRESSION_ALERT("Alert"),
-    EXPRESSION_RELAXED("Relaxed"),
+    EXPRESSION_HAPPY("Happy", "행복한"),
+    EXPRESSION_SAD("Sad", "슬픈"),
+    EXPRESSION_ALERT("Alert", "경계하는"),
+    EXPRESSION_RELAXED("Relaxed", "편안한"),
 
     // Pose
-    POSE_SITTING("Sitting"),
-    POSE_STANDING("Standing"),
-    POSE_RUNNING("Running"),
-    POSE_LYING_DOWN("Lying Down");
+    POSE_SITTING("Sitting", "앉아 있는"),
+    POSE_STANDING("Standing", "서 있는"),
+    POSE_RUNNING("Running", "달리는"),
+    POSE_LYING_DOWN("Lying Down", "누워 있는"),
 
-    private final String description;
+    // UnKnown
+    UNKNOWN("Unknown", "잘 모르겠음");
 
-    DogAttributes(String description) {
-        this.description = description;
+    private final String englishDescription;
+    private final String koreanDescription;
+
+    DogAttributes(String englishDescription, String koreanDescription) {
+        this.englishDescription = englishDescription;
+        this.koreanDescription = koreanDescription;
     }
 
-    public String getDescription() {
-        return description;
+    public String getEnglishDescription() {
+        return englishDescription;
+    }
+
+    public String getKoreanDescription() {
+        return koreanDescription;
     }
 }
-

@@ -17,6 +17,7 @@ import com.example.puppicasso.global.security.MyUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -143,5 +144,10 @@ public class AIController {
             e.printStackTrace();
             return ResponseEntity.status(500).body("Request to external API failed");
         }
+    }
+
+    @PostMapping("/api/picture/create")
+    public ResponseEntity<?> pictureCreateScreen(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+        return aiService.getPictureCreateData(myUserDetails);
     }
 }

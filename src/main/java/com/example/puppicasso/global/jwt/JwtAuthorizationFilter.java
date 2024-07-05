@@ -3,6 +3,7 @@ package com.example.puppicasso.global.jwt;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.example.puppicasso.global.error.exception.InvalidTokenException;
 import com.example.puppicasso.global.security.MyUserDetails;
 import com.example.puppicasso.domain.user.entity.User;
 import jakarta.servlet.FilterChain;
@@ -46,10 +47,10 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authentication);
         } catch (SignatureVerificationException sve) {
             log.error("토큰 검증 실패");
-            throw sve;
+            throw new InvalidTokenException("로그인한지 오래되어 토큰이 검증되지 않았습니다.");
         } catch (TokenExpiredException tee) {
             log.error("토큰 만료");
-            throw tee;
+            throw new InvalidTokenException("토큰이 만료되었습니다. 다시 로그인해주세요.");
         } finally {
             chain.doFilter(request, response);
         }
