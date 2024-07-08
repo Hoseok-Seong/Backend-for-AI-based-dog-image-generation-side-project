@@ -2,7 +2,7 @@ package com.example.puppicasso.domain.user.controller;
 
 import com.example.puppicasso.domain.user.service.UserSignInService;
 import com.example.puppicasso.domain.user.service.UserSignUpService;
-import com.example.puppicasso.domain.user.service.UserUpdateService;
+import com.example.puppicasso.domain.user.service.UserUpdateProfileService;
 import com.example.puppicasso.global.security.MyUserDetails;
 import com.example.puppicasso.domain.user.dto.UserJoinReq;
 import com.example.puppicasso.domain.user.dto.UserLoginReq;
@@ -23,7 +23,7 @@ public class UserController {
 
     private final UserSignInService userSignInService;
     private final UserSignUpService userSignUpService;
-    private final UserUpdateService userUpdateService;
+    private final UserUpdateProfileService userUpdateProfileService;
 
     @PostMapping("/sign-in")
     public ResponseEntity<?> signIn(@RequestHeader("User-Agent") final String userAgent, @RequestBody @Valid final UserLoginReq userLoginReq) {
@@ -38,6 +38,6 @@ public class UserController {
     @PutMapping ("/api/users/profile-picture")
     public ResponseEntity<?> update(@AuthenticationPrincipal final MyUserDetails myUserDetails,
                                     @RequestBody @Valid final UserUpdateReq userUpdateReq) {
-        return userUpdateService.updateProfilePicture(myUserDetails, userUpdateReq);
+        return userUpdateProfileService.updateProfile(myUserDetails, userUpdateReq);
     }
 }

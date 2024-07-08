@@ -18,16 +18,15 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class MainService {
+public class MainPageDataService {
 
     private final UserInfoRepository userInfoRepository;
     private final SubscriptionRepository subscriptionRepository;
     private final GalleryRepository galleryRepository;
 
-    @Transactional(readOnly = true)
-    public ResponseEntity<?> getMainScreenData(MyUserDetails myUserDetails) {
-
+    public ResponseEntity<?> getMainPageData(MyUserDetails myUserDetails) {
         UserInfo userInfo = userInfoRepository.findByUserId(myUserDetails.getUser().getId());
         Subscription subscription = subscriptionRepository.findTopByUserIdOrderByPriceDesc(myUserDetails.getUser().getId());
 

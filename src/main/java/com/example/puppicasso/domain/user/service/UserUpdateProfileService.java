@@ -13,10 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class UserUpdateService {
+public class UserUpdateProfileService {
     private final UserFindDao userFindDao;
 
-    public ResponseEntity<?> updateProfilePicture(MyUserDetails myUserDetails, UserUpdateReq userUpdateReq) {
+    public ResponseEntity<?> updateProfile(MyUserDetails myUserDetails, UserUpdateReq userUpdateReq) {
         final User user = userFindDao.findById(myUserDetails.getUser().getId());
 
         return ResponseEntity.ok().body(new UserUpdateResp(user));
