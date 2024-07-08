@@ -15,7 +15,7 @@ public class MainController {
     private final MainPageDataService mainPageDataService;
 
     @GetMapping("/api/main")
-    public ResponseEntity<?> getMainPageData(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+    public ResponseEntity<?> getMainPageData(@AuthenticationPrincipal final MyUserDetails myUserDetails) {
         return mainPageDataService.getMainPageData(myUserDetails);
     }
 }

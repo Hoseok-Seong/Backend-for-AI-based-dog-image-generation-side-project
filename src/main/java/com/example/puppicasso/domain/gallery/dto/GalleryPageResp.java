@@ -10,10 +10,10 @@ import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
-public class GalleriesScreenResp {
+public class GalleryPageResp {
     private List<String> fileData;
 
-    public GalleriesScreenResp(List<Gallery> galleries) {
+    public GalleryPageResp(List<Gallery> galleries) {
         this.fileData = galleries.stream()
                 .map(gallery -> Base64.getEncoder().encodeToString(gallery.getData()))
                 .collect(Collectors.toList());

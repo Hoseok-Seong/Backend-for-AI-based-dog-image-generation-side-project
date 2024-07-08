@@ -12,14 +12,14 @@ import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
-public class MainScreenResp {
+public class MainPageResp {
     private String gradeName;
     private String subscriptionName;
     private int usedGenerateCount;
     private int leftGenerateCount;
     private List<String> fileData;
 
-    public MainScreenResp(UserInfo userInfo, Subscription subscription, List<Gallery> galleries) {
+    public MainPageResp(UserInfo userInfo, Subscription subscription, List<Gallery> galleries) {
         this.gradeName = userInfo.getGrade().getName();
         this.subscriptionName = subscription.getType().getName();
         this.usedGenerateCount = subscription.getUsedGenerateCount();

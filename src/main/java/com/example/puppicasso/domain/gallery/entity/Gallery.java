@@ -14,20 +14,21 @@ import lombok.NoArgsConstructor;
 public class Gallery extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "userId", nullable = false)
     private Long userId;
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = false)
     private Type type;
 
     @Lob
-    @Column(nullable = false)
+    @Column(name = "data", nullable = false)
     private byte[] data;
 
     @Column(name = "is_deleted", nullable = false)

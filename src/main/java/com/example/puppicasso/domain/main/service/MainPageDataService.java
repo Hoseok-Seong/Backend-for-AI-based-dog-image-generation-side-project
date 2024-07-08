@@ -2,7 +2,7 @@ package com.example.puppicasso.domain.main.service;
 
 import com.example.puppicasso.domain.gallery.entity.Gallery;
 import com.example.puppicasso.domain.gallery.repository.GalleryRepository;
-import com.example.puppicasso.domain.main.dto.MainScreenResp;
+import com.example.puppicasso.domain.main.dto.MainPageResp;
 import com.example.puppicasso.domain.subscription.entity.Subscription;
 import com.example.puppicasso.domain.subscription.repository.SubscriptionRepository;
 import com.example.puppicasso.domain.userInfo.entity.UserInfo;
@@ -33,6 +33,6 @@ public class MainPageDataService {
         Pageable pageable = PageRequest.of(0, 5); // 첫 번째 페이지에서 5개의 결과를 가져옴
         List<Gallery> galleries = galleryRepository.findByUserIdOrderByCreatedDateDesc(myUserDetails.getUser().getId(), pageable);
 
-        return ResponseEntity.ok().body(new MainScreenResp(userInfo, subscription, galleries));
+        return ResponseEntity.ok().body(new MainPageResp(userInfo, subscription, galleries));
     }
 }

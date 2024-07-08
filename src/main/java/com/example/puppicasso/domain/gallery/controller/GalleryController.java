@@ -1,6 +1,6 @@
 package com.example.puppicasso.domain.gallery.controller;
 
-import com.example.puppicasso.domain.gallery.service.GalleryService;
+import com.example.puppicasso.domain.gallery.service.GalleryPageDataService;
 import com.example.puppicasso.global.security.MyUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class GalleryController {
 
-    private final GalleryService galleryService;
+    private final GalleryPageDataService galleryPageDataService;
 
     @GetMapping("/api/galleries")
-    public ResponseEntity<?> galleriesScreen(@AuthenticationPrincipal MyUserDetails myUserDetails) {
-        return galleryService.getGalleriesScreenData(myUserDetails);
+    public ResponseEntity<?> getGalleryPageData(@AuthenticationPrincipal final MyUserDetails myUserDetails) {
+        return galleryPageDataService.getGalleryPageData(myUserDetails);
     }
 }

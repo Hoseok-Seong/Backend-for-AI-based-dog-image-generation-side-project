@@ -1,6 +1,6 @@
 package com.example.puppicasso.domain.gallery.service;
 
-import com.example.puppicasso.domain.gallery.dto.GalleriesScreenResp;
+import com.example.puppicasso.domain.gallery.dto.GalleryPageResp;
 import com.example.puppicasso.domain.gallery.entity.Gallery;
 import com.example.puppicasso.domain.gallery.repository.GalleryRepository;
 import com.example.puppicasso.global.security.MyUserDetails;
@@ -12,16 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class GalleryService {
+public class GalleryPageDataService {
 
     private final GalleryRepository galleryRepository;
 
-    @Transactional(readOnly = true)
-    public ResponseEntity<?> getGalleriesScreenData(MyUserDetails myUserDetails) {
-
+    public ResponseEntity<?> getGalleryPageData(MyUserDetails myUserDetails) {
         List<Gallery> galleries = galleryRepository.findByUserId(myUserDetails.getUser().getId());
 
-        return ResponseEntity.ok().body(new GalleriesScreenResp(galleries));
+        return ResponseEntity.ok().body(new GalleryPageResp(galleries));
     }
 }

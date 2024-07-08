@@ -34,6 +34,7 @@ public class User extends BaseTimeEntity {
     private String email;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "role")
     private Role role;
 
     @Column(name = "is_blocked", nullable = false)
