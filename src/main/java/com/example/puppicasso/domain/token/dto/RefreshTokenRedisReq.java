@@ -1,6 +1,6 @@
-package com.example.puppicasso.domain.user.dto;
+package com.example.puppicasso.domain.token.dto;
 
-import com.example.puppicasso.domain.user.entity.RefreshTokenRedis;
+import com.example.puppicasso.domain.token.entity.RefreshTokenRedis;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

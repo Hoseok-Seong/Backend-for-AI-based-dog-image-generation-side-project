@@ -1,4 +1,4 @@
-package com.example.puppicasso.domain.user.entity;
+package com.example.puppicasso.domain.token.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
@@ -14,8 +14,10 @@ import org.springframework.data.redis.core.TimeToLive;
 @RedisHash("refreshToken")
 public class RefreshTokenRedis {
     @Id
+    @Column(name = "id", updatable = false)
     private Long id;
-    @Column(nullable = false)
+
+    @Column(name = "refresh_token", nullable = false)
     private String refreshToken;
 
     @TimeToLive
@@ -28,7 +30,7 @@ public class RefreshTokenRedis {
         this.expiredAt = expiredAt;
     }
 
-    public void updateRefreshToken(String refreshToken) {
+    public void updateRefreshToken(final String refreshToken) {
         this.refreshToken = refreshToken;
     }
 }

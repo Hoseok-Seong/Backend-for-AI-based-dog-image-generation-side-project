@@ -1,4 +1,4 @@
-package com.example.puppicasso.domain.user.dto;
+package com.example.puppicasso.domain.token.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

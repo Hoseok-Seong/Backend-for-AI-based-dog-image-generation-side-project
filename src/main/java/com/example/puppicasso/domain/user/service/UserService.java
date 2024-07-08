@@ -1,18 +1,15 @@
 package com.example.puppicasso.domain.user.service;
 
-import com.example.puppicasso.domain.gallery.entity.Gallery;
 import com.example.puppicasso.domain.gallery.repository.GalleryRepository;
 import com.example.puppicasso.domain.subscription.entity.Subscription;
 import com.example.puppicasso.domain.subscription.entity.Type;
 import com.example.puppicasso.domain.subscription.repository.SubscriptionRepository;
-import com.example.puppicasso.domain.user.repository.RefreshTokenRedisRepository;
 import com.example.puppicasso.domain.user.repository.UserRepository;
 import com.example.puppicasso.domain.userInfo.entity.Grade;
 import com.example.puppicasso.domain.userInfo.entity.UserInfo;
 import com.example.puppicasso.domain.userInfo.repository.UserInfoRepository;
 import com.example.puppicasso.global.jwt.JwtProvider;
 import com.example.puppicasso.global.security.MyUserDetails;
-import com.example.puppicasso.domain.user.dto.RefreshTokenRedisReq;
 import com.example.puppicasso.domain.user.dto.UserJoinReq;
 import com.example.puppicasso.domain.user.dto.UserJoinResp;
 import com.example.puppicasso.domain.user.dto.UserLoginReq;

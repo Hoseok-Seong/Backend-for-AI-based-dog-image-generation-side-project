@@ -11,17 +11,10 @@ public enum ErrorCode {
     INTERNAL_SERVER_ERROR(500, "C004", "Server Error"),
     INVALID_TYPE_VALUE(400, "C005", " Invalid Type Value"),
     HANDLE_ACCESS_DENIED(403, "C006", "Access is Denied"),
-    INVALID_TOKEN(400, "C007", " Invalid Token"),
 
-
-    // Member
-    EMAIL_DUPLICATION(400, "M001", "Email is Duplication"),
-    LOGIN_INPUT_INVALID(400, "M002", "Login input is invalid"),
-
-    // Coupon
-    COUPON_ALREADY_USE(400, "CO001", "Coupon was already used"),
-    COUPON_EXPIRE(400, "CO002", "Coupon was already expired")
-
+    // JWT
+    INVALID_ACCESS_TOKEN(400, "J001", " Invalid Access Token"),
+    INVALID_REFRESH_TOKEN(400, "J002", " Invalid Refresh Token"),
     ;
     private final String code;
     private final String message;
