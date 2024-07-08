@@ -23,4 +23,10 @@ public class UserFindDao {
         user.orElseThrow(() -> new UserNotFoundException(userId));
         return user.get();
     }
+
+    public User findByUsername(final String username) {
+        final Optional<User> user = userRepository.findByUsername(username);
+        user.orElseThrow(() -> new UserNotFoundException(username));
+        return user.get();
+    }
 }

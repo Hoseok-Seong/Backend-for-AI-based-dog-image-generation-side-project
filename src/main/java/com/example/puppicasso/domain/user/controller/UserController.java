@@ -1,15 +1,18 @@
 package com.example.puppicasso.domain.user.controller;
 
+import com.example.puppicasso.domain.user.service.UserSignInService;
+import com.example.puppicasso.domain.user.service.UserSignUpService;
+import com.example.puppicasso.domain.user.service.UserUpdateService;
 import com.example.puppicasso.global.security.MyUserDetails;
 import com.example.puppicasso.domain.user.dto.UserJoinReq;
 import com.example.puppicasso.domain.user.dto.UserLoginReq;
 import com.example.puppicasso.domain.user.dto.UserUpdateReq;
-import com.example.puppicasso.domain.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,21 +21,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    private final UserSignInService userSignInService;
+    private final UserSignUpService userSignUpService;
+    private final UserUpdateService userUpdateService;
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestHeader("User-Agent") String userAgent, @RequestBody @Valid UserLoginReq userLoginReq) {
-        return userService.login(userAgent, userLoginReq);
+    @PostMapping("/sign-in")
+    public ResponseEntity<?> signIn(@RequestHeader("User-Agent") final String userAgent, @RequestBody @Valid final UserLoginReq userLoginReq) {
+        return userSignInService.signIn(userAgent, userLoginReq);
     }
 
-    @PostMapping("/join")
-    public ResponseEntity<?> join(@RequestHeader("User-Agent") String userAgent, @RequestBody @Valid UserJoinReq userJoinReq) {
-        return userService.join(userAgent, userJoinReq);
+    @PostMapping("/sign-up")
+    public ResponseEntity<?> signUp(@RequestHeader("User-Agent") final String userAgent, @RequestBody @Valid final UserJoinReq userJoinReq) {
+        return userSignUpService.signUp(userAgent, userJoinReq);
     }
 
-    @PostMapping("/api/user/update")
-    public ResponseEntity<?> update(@AuthenticationPrincipal MyUserDetails myUserDetails,
-                                    @RequestBody @Valid UserUpdateReq userUpdateReq) {
-        return userService.update(myUserDetails, userUpdateReq);
+    @PutMapping ("/api/users/profile-picture")
+    public ResponseEntity<?> update(@AuthenticationPrincipal final MyUserDetails myUserDetails,
+                                    @RequestBody @Valid final UserUpdateReq userUpdateReq) {
+        return userUpdateService.updateProfilePicture(myUserDetails, userUpdateReq);
     }
 }

@@ -12,14 +12,14 @@ import org.springframework.web.client.RestTemplate;
 public class RestTemplateConfig {
     private final RestTemplateBuilder restTemplateBuilder;
 
-    @Bean
-    public RestTemplate localTestTemplate() {
-        return restTemplateBuilder.rootUri("http://localhost:8080")
-                .additionalInterceptors(new RestTemplateClientHttpRequestInterceptor())
-                .errorHandler(new RestTemplateErrorHandler())
-                .setConnectTimeout(Duration.ofMinutes(3))
-                .build();
-    }
+//    @Bean
+//    public RestTemplate localTestTemplate() {
+//        return restTemplateBuilder.rootUri("http://localhost:8080")
+//                .additionalInterceptors(new RestTemplateClientHttpRequestInterceptor())
+//                .errorHandler(new RestTemplateErrorHandler())
+//                .setConnectTimeout(Duration.ofMinutes(3))
+//                .build();
+//    }
 
 //    @Bean
 //    public RestTemplate amazonSmsTemplate() {
