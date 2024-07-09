@@ -10,7 +10,7 @@ public class JsonUtil {
      * @return 첫 번째 이미지 URL
      * @throws Exception JSON 파싱 예외
      */
-    public static String extractImageUrl(String jsonResponse) throws Exception {
+    public static String extractImageUrl(String jsonResponse) {
         JSONObject jsonObject = new JSONObject(jsonResponse);
         JSONArray outputArray = jsonObject.getJSONArray("output");
         return outputArray.getString(0);

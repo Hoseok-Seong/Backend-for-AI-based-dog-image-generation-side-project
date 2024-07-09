@@ -19,10 +19,12 @@ public class ImageUtil {
      * @return Base64로 인코딩된 이미지 데이터
      * @throws IOException 입력/출력 예외
      */
-    public static byte[] downloadImageAsBase64(String imageUrl) throws IOException {
+    public static byte[] downloadImageAsBase64(String imageUrl) {
         try (InputStream in = new URL(imageUrl).openStream()) {
             byte[] imageBytes = IOUtils.toByteArray(in);
             return Base64.getEncoder().encode(imageBytes);
+        } catch (IOException e) {
+            throw new IOException(e);
         }
     }
 

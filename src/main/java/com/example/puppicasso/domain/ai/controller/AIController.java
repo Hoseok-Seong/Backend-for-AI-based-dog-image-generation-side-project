@@ -32,7 +32,6 @@ public class AIController {
         }
 
         final AIImageResp aiImageResp = modelsLabFacadeService.generateModelsLabImages(myUserDetails, file, aiImageReq);
-
         return ResponseEntity.ok().body(aiImageResp);
     }
 

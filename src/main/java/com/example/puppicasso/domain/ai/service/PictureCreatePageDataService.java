@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PictureCreatePageDataService {
 
-    public PictureCreatePageDataResp getPictureCreatePageData(MyUserDetails myUserDetails) {
+    public PictureCreatePageDataResp getPictureCreatePageData(final MyUserDetails myUserDetails) {
 
         PictureCreatePageDataResp response = new PictureCreatePageDataResp();
 

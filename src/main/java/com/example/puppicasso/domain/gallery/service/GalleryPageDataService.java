@@ -17,7 +17,7 @@ public class GalleryPageDataService {
 
     private final GalleryRepository galleryRepository;
 
-    public GalleryPageDataResp getGalleryPageData(MyUserDetails myUserDetails) {
+    public GalleryPageDataResp getGalleryPageData(final MyUserDetails myUserDetails) {
         List<Gallery> galleries = galleryRepository.findByUserId(myUserDetails.getUser().getId());
 
         return new GalleryPageDataResp(galleries);

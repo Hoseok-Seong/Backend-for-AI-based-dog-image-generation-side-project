@@ -25,7 +25,7 @@ public class MainPageDataService {
     private final SubscriptionRepository subscriptionRepository;
     private final GalleryRepository galleryRepository;
 
-    public MainPageDataResp getMainPageData(MyUserDetails myUserDetails) {
+    public MainPageDataResp getMainPageData(final MyUserDetails myUserDetails) {
         UserInfo userInfo = userInfoRepository.findByUserId(myUserDetails.getUser().getId());
         Subscription subscription = subscriptionRepository.findTopByUserIdOrderByPriceDesc(myUserDetails.getUser().getId());
 
