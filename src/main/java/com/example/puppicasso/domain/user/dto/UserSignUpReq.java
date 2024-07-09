@@ -5,10 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class UserSignUpReq {
     @NotBlank(message = "username을 입력해주세요")
@@ -23,5 +21,9 @@ public class UserSignUpReq {
                 .username(username)
                 .password(password)
                 .build();
+    }
+
+    public void updatePassword(String password) {
+        this.password = password;
     }
 }

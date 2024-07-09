@@ -1,5 +1,6 @@
 package com.example.puppicasso.domain.user.service;
 
+import com.example.puppicasso.domain.subscription.dto.SubscriptionSaveReq;
 import com.example.puppicasso.domain.subscription.entity.Subscription;
 import com.example.puppicasso.domain.subscription.entity.Type;
 import com.example.puppicasso.domain.subscription.dao.SubscriptionRepository;
@@ -7,6 +8,7 @@ import com.example.puppicasso.domain.user.dao.UserRepository;
 import com.example.puppicasso.domain.user.dto.UserSignUpReq;
 import com.example.puppicasso.domain.user.entity.User;
 import com.example.puppicasso.domain.user.exception.UserDuplicateException;
+import com.example.puppicasso.domain.userInfo.dto.UserInfoSaveReq;
 import com.example.puppicasso.domain.userInfo.entity.Grade;
 import com.example.puppicasso.domain.userInfo.entity.UserInfo;
 import com.example.puppicasso.domain.userInfo.dao.UserInfoRepository;
@@ -29,7 +31,7 @@ public class UserSignUpService {
     public User signUp(final String userAgent, final UserSignUpReq userSignUpReq) {
         String rawPassword = userSignUpReq.getPassword();
         String encPassword = passwordEncoder.encode(rawPassword); // 60Byte
-        userSignUpReq.setPassword(encPassword);
+        userSignUpReq.updatePassword(encPassword);
 
         Optional<User> userOptional = userRepository.findByUsername(userSignUpReq.getUsername());
 
@@ -39,22 +41,11 @@ public class UserSignUpService {
 
         User user = userRepository.save(userSignUpReq.toEntity());
 
-        // Welcome 쿠폰(Subscription) 생성
-        Subscription welcomeSubscription = Subscription.builder()
-                .userId(user.getId())
-                .type(Type.WELCOME)
-                .build();
+        SubscriptionSaveReq subscriptionSaveReq = new SubscriptionSaveReq(user.getId(), Type.WELCOME);
+        subscriptionRepository.save(subscriptionSaveReq.toEntity());
 
-        subscriptionRepository.save(welcomeSubscription);
-
-        // UserInfo 생성
-        UserInfo userInfo = UserInfo.builder()
-                .userId(user.getId())
-                .profilePic(null)
-                .grade(Grade.BASIC)
-                .build();
-
-        userInfoRepository.save(userInfo);
+        UserInfoSaveReq userInfoSaveReq = new UserInfoSaveReq(user.getId(), Grade.BASIC);
+        userInfoRepository.save(userInfoSaveReq.toEntity());
 
         return user;
     }

@@ -6,7 +6,6 @@ import com.example.puppicasso.domain.ai.prompt.DogBreed;
 import com.example.puppicasso.domain.ai.prompt.DogCoatColor;
 import com.example.puppicasso.global.security.MyUserDetails;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +18,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PictureCreatePageDataService {
 
-    public ResponseEntity<?> getPictureCreatePageData(MyUserDetails myUserDetails) {
+    public PictureCreatePageDataResp getPictureCreatePageData(MyUserDetails myUserDetails) {
 
         PictureCreatePageDataResp response = new PictureCreatePageDataResp();
 
@@ -36,7 +35,7 @@ public class PictureCreatePageDataService {
         response.setPoses(getAttributes(DogAttributes.POSE_SITTING, DogAttributes.POSE_STANDING, DogAttributes.POSE_RUNNING, DogAttributes.POSE_LYING_DOWN));
         response.setCoatColors(getAttributes(DogCoatColor.values()));
 
-        return ResponseEntity.ok().body(response);
+        return response;
     }
 
     private List<PictureCreatePageDataResp.Attribute> getAttributes(DogAttributes... attributes) {

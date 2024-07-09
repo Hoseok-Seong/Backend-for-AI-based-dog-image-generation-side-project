@@ -17,11 +17,11 @@ import java.util.Map;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class ModelsLabAIImageService {
+public class ModelsLabAIImageGenerateService {
 
     private final ModelsLabConfig modelsLabConfig;
 
-    public String createModelsLabAIImage(String imageUrl, String prompt) throws IOException {
+    public String generateModelsLabAIImage(final String imageUrl, final String prompt) throws IOException {
         HttpHeaders headers = modelsLabConfig.modelsLabHttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
