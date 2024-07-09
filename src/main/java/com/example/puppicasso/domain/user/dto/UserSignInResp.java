@@ -6,12 +6,16 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class UserJoinResp {
+public class UserSignInResp {
     private Long id;
     private String username;
+    private String accessToken;
+    private String refreshToken;
 
-    public UserJoinResp(User user) {
+    public UserSignInResp(User user, String accessToken, String refreshToken) {
         this.id = user.getId();
         this.username = user.getUsername();
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
     }
 }

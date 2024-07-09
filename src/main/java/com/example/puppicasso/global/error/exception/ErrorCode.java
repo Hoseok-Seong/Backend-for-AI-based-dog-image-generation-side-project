@@ -19,6 +19,9 @@ public enum ErrorCode {
     // USER
     SIGNIN_PASSWORD_MISMATCH(400, "U001", " Signin Password Mismatch"),
     USER_DUPLICATION(400, "U002", " User is Duplication"),
+
+    // AI
+    MAX_IMAGE_SIZE_EXCEEDED(400, "A001", " Max Image Size is Exceeded"),
     ;
 
     private final String code;

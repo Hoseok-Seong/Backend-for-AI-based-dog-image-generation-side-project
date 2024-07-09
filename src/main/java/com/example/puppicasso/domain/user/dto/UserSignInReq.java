@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class UserLoginReq {
+public class UserSignInReq {
     @NotBlank(message = "username을 입력해주세요")
     @Size(min = 7, max = 50)
     private String username;
@@ -16,7 +16,7 @@ public class UserLoginReq {
     @Size(min = 8, max = 50)
     private String password;
 
-    public UserLoginReq(User user) {
+    public UserSignInReq(User user) {
         this.username = user.getUsername();
         this.password = user.getPassword();
     }

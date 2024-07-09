@@ -2,24 +2,24 @@ package com.example.puppicasso.domain.ai.controller;
 
 import com.example.puppicasso.domain.ai.dto.AIImageReq;
 import com.example.puppicasso.domain.ai.dto.AIImageResp;
+import com.example.puppicasso.domain.ai.exception.MaxImageSizeExceededException;
 import com.example.puppicasso.domain.ai.prompt.Atmosphere;
 import com.example.puppicasso.domain.ai.prompt.StudioConcept;
+import com.example.puppicasso.domain.ai.service.PictureCreatePageDataService;
 import com.example.puppicasso.domain.ai.service.AIService;
-import com.example.puppicasso.domain.ai.service.FileService;
+import com.example.puppicasso.domain.ai.service.ImageFileService;
 import com.example.puppicasso.domain.ai.util.ImageUtil;
 import com.example.puppicasso.domain.ai.util.JsonUtil;
 import com.example.puppicasso.domain.ai.util.PictureEditUtil;
 import com.example.puppicasso.domain.ai.util.PromptUtil;
 import com.example.puppicasso.domain.gallery.entity.Gallery;
 import com.example.puppicasso.domain.gallery.entity.Type;
-import com.example.puppicasso.domain.gallery.repository.GalleryRepository;
+import com.example.puppicasso.domain.gallery.dao.GalleryRepository;
 import com.example.puppicasso.global.security.MyUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,8 +36,9 @@ import java.util.Objects;
 public class AIController {
 
     private final AIService aiService;
-    private final FileService fileService;
+    private final ImageFileService imageFileService;
     private final GalleryRepository galleryRepository;
+    private final PictureCreatePageDataService pictureCreatePageDataService;
 
     @PostMapping("/api/OpenAI/Images")
     public ResponseEntity<?> generateOpenAIImages(@AuthenticationPrincipal MyUserDetails myUserDetails,
@@ -94,19 +95,19 @@ public class AIController {
         }
     }
 
-    @PostMapping("/api/ModelsLab/Images")
+    @PostMapping("/api/models-lab/images")
     public ResponseEntity<?> generateModelsLabImages(@AuthenticationPrincipal MyUserDetails myUserDetails,
                                                      @RequestPart("image") MultipartFile file,
                                                      @RequestPart("details") AIImageReq aiImageReq) {
         try {
             // 파일 크기 검사 (4MB 이하)
             if (file.getSize() > 4 * 1024 * 1024) {
-                return ResponseEntity.badRequest().body("Image must be less than 4MB.");
+                throw new MaxImageSizeExceededException();
             }
 
             // 이미지 파일을 서버에 저장하고 URL을 생성
-            String filePath = fileService.saveFile(file);
-            String imageUrl = fileService.getFileUrl(filePath);
+            String filePath = imageFileService.saveFile(file);
+            String imageUrl = imageFileService.getFileUrl(filePath);
 
             // 프롬프트 생성
             String prompt = PromptUtil.generateModelsLabPrompt(aiImageReq);
@@ -134,7 +135,7 @@ public class AIController {
             galleryRepository.save(gallery);
 
             // 파일 삭제
-            fileService.deleteFile(filePath);
+            imageFileService.deleteFile(filePath);
 
             return ResponseEntity.ok().body(new AIImageResp(gallery, generatedImageUrl));
         } catch (IOException e) {
@@ -146,8 +147,8 @@ public class AIController {
         }
     }
 
-    @PostMapping("/api/picture/create")
+    @PostMapping("/api/picture-create")
     public ResponseEntity<?> pictureCreateScreen(@AuthenticationPrincipal MyUserDetails myUserDetails) {
-        return aiService.getPictureCreateData(myUserDetails);
+        return pictureCreatePageDataService.getPictureCreatePageData(myUserDetails);
     }
 }

@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserJoinReq {
+public class UserSignUpReq {
     @NotBlank(message = "username을 입력해주세요")
     @Size(min = 7, max = 50)
     private String username;

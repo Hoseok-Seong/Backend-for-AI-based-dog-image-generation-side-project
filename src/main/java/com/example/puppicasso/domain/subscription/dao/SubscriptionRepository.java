@@ -1,4 +1,4 @@
-package com.example.puppicasso.domain.subscription.repository;
+package com.example.puppicasso.domain.subscription.dao;
 
 import com.example.puppicasso.domain.subscription.entity.Subscription;
 import org.springframework.data.domain.PageRequest;

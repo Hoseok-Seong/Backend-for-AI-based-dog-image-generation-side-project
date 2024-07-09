@@ -1,4 +1,4 @@
-package com.example.puppicasso.domain.gallery.repository;
+package com.example.puppicasso.domain.gallery.dao;
 
 import com.example.puppicasso.domain.gallery.entity.Gallery;
 import org.springframework.data.domain.Pageable;

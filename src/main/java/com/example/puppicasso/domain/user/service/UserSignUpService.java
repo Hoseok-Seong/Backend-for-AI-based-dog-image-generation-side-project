@@ -2,17 +2,15 @@ package com.example.puppicasso.domain.user.service;
 
 import com.example.puppicasso.domain.subscription.entity.Subscription;
 import com.example.puppicasso.domain.subscription.entity.Type;
-import com.example.puppicasso.domain.subscription.repository.SubscriptionRepository;
+import com.example.puppicasso.domain.subscription.dao.SubscriptionRepository;
 import com.example.puppicasso.domain.user.dao.UserRepository;
-import com.example.puppicasso.domain.user.dto.UserJoinReq;
-import com.example.puppicasso.domain.user.dto.UserJoinResp;
+import com.example.puppicasso.domain.user.dto.UserSignUpReq;
 import com.example.puppicasso.domain.user.entity.User;
 import com.example.puppicasso.domain.user.exception.UserDuplicateException;
 import com.example.puppicasso.domain.userInfo.entity.Grade;
 import com.example.puppicasso.domain.userInfo.entity.UserInfo;
-import com.example.puppicasso.domain.userInfo.repository.UserInfoRepository;
+import com.example.puppicasso.domain.userInfo.dao.UserInfoRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,18 +26,18 @@ public class UserSignUpService {
     private final SubscriptionRepository subscriptionRepository;
     private final UserInfoRepository userInfoRepository;
 
-    public ResponseEntity<?> signUp(final String userAgent, final UserJoinReq userJoinReq) {
-        String rawPassword = userJoinReq.getPassword();
+    public User signUp(final String userAgent, final UserSignUpReq userSignUpReq) {
+        String rawPassword = userSignUpReq.getPassword();
         String encPassword = passwordEncoder.encode(rawPassword); // 60Byte
-        userJoinReq.setPassword(encPassword);
+        userSignUpReq.setPassword(encPassword);
 
-        Optional<User> userOptional = userRepository.findByUsername(userJoinReq.getUsername());
+        Optional<User> userOptional = userRepository.findByUsername(userSignUpReq.getUsername());
 
         if (userOptional.isPresent()) {
             throw new UserDuplicateException(userOptional.get());
         }
 
-        User user = userRepository.save(userJoinReq.toEntity());
+        User user = userRepository.save(userSignUpReq.toEntity());
 
         // Welcome 쿠폰(Subscription) 생성
         Subscription welcomeSubscription = Subscription.builder()
@@ -58,6 +56,6 @@ public class UserSignUpService {
 
         userInfoRepository.save(userInfo);
 
-        return ResponseEntity.ok().body(new UserJoinResp(user));
+        return user;
     }
 }

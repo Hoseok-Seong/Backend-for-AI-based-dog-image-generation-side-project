@@ -1,5 +1,6 @@
 package com.example.puppicasso.domain.gallery.controller;
 
+import com.example.puppicasso.domain.gallery.dto.GalleryPageDataResp;
 import com.example.puppicasso.domain.gallery.service.GalleryPageDataService;
 import com.example.puppicasso.global.security.MyUserDetails;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +15,9 @@ public class GalleryController {
 
     private final GalleryPageDataService galleryPageDataService;
 
-    @GetMapping("/api/galleries")
-    public ResponseEntity<?> getGalleryPageData(@AuthenticationPrincipal final MyUserDetails myUserDetails) {
-        return galleryPageDataService.getGalleryPageData(myUserDetails);
+    @GetMapping("/api/gallery")
+    public ResponseEntity<GalleryPageDataResp> getGalleryPageData(@AuthenticationPrincipal final MyUserDetails myUserDetails) {
+        final GalleryPageDataResp galleryPageDataResp = galleryPageDataService.getGalleryPageData(myUserDetails);
+        return ResponseEntity.ok().body(galleryPageDataResp);
     }
 }

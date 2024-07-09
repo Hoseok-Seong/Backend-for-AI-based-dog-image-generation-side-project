@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class UserUpdateReq {
+public class UserUpdateProfileReq {
     @NotBlank(message = "password를 입력해주세요")
     @Size(min = 8, max = 50)
     private String password;
 
-    public UserUpdateReq(String password)
+    public UserUpdateProfileReq(String password)
     {
         this.password = password;
     }

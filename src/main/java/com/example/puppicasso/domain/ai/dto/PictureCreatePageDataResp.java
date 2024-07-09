@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PictureCreateResp {
+public class PictureCreatePageDataResp {
     private List<Attribute> breeds;
     private List<Attribute> sizes;
     private List<Attribute> coatLengths;

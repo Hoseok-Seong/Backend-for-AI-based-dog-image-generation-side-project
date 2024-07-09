@@ -10,7 +10,6 @@ import com.example.puppicasso.domain.user.entity.User;
 import com.example.puppicasso.domain.user.exception.UserNotFoundException;
 import com.example.puppicasso.global.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +22,7 @@ public class AccessTokenGenerateService {
     private final RefreshTokenDao refreshTokenDao;
     private final UserFindDao userFindDao;
 
-    public ResponseEntity<?> generateNewAccessToken(final String userAgent, final NewAccessTokenReq newAccessTokenReq) {
+    public NewAccessTokenResp generateNewAccessToken(final String userAgent, final NewAccessTokenReq newAccessTokenReq) {
         if (userRepository.existsById(newAccessTokenReq.getUserId())) {
             throw new UserNotFoundException(newAccessTokenReq.getUserId());
         }
@@ -39,7 +38,6 @@ public class AccessTokenGenerateService {
         String newRefreshToken = JwtProvider.createRefreshToken(user);
         refreshTokenRedis.updateRefreshToken(newRefreshToken);
 
-        return ResponseEntity.ok().header(JwtProvider.ACCESS_TOKEN_HEADER, accessToken)
-                .header(JwtProvider.REFRESH_TOKEN_HEADER, newRefreshToken).body(new NewAccessTokenResp(user));
+        return new NewAccessTokenResp(user, accessToken, newRefreshToken);
     }
 }

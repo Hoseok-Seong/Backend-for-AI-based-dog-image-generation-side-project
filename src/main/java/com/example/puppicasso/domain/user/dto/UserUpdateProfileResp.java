@@ -6,10 +6,10 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class UserUpdateResp {
+public class UserUpdateProfileResp {
     private Long id;
     private String username;
-    public UserUpdateResp(User user) {
+    public UserUpdateProfileResp(User user) {
         this.id = user.getId();
         this.username = user.getUsername();
     }

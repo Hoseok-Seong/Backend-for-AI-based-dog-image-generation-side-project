@@ -1,8 +1,8 @@
 package com.example.puppicasso.domain.user.service;
 
 import com.example.puppicasso.domain.user.dao.UserFindDao;
-import com.example.puppicasso.domain.user.dto.UserUpdateReq;
-import com.example.puppicasso.domain.user.dto.UserUpdateResp;
+import com.example.puppicasso.domain.user.dto.UserUpdateProfileReq;
+import com.example.puppicasso.domain.user.dto.UserUpdateProfileResp;
 import com.example.puppicasso.domain.user.entity.User;
 import com.example.puppicasso.global.security.MyUserDetails;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserUpdateProfileService {
     private final UserFindDao userFindDao;
 
-    public ResponseEntity<?> updateProfile(MyUserDetails myUserDetails, UserUpdateReq userUpdateReq) {
+    public User updateProfile(MyUserDetails myUserDetails, UserUpdateProfileReq userUpdateProfileReq) {
         final User user = userFindDao.findById(myUserDetails.getUser().getId());
-
-        return ResponseEntity.ok().body(new UserUpdateResp(user));
+        return user;
     }
 }

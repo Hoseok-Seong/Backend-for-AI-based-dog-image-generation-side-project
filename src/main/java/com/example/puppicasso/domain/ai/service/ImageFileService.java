@@ -10,7 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Service
-public class FileService {
+public class ImageFileService {
 
     private static final String UPLOAD_DIR = "src/main/resources/static/uploads/";
 
