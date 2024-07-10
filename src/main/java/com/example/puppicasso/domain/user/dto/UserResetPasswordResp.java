@@ -6,11 +6,11 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class UserUpdateProfileResp {
+public class UserResetPasswordResp {
     private Long id;
     private String username;
 
-    public UserUpdateProfileResp(User user) {
+    public UserResetPasswordResp(User user) {
         this.id = user.getId();
         this.username = user.getUsername();
     }

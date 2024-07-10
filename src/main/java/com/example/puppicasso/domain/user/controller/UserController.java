@@ -1,29 +1,24 @@
 package com.example.puppicasso.domain.user.controller;
 
-import com.example.puppicasso.domain.ai.exception.MaxImageSizeExceededException;
+import com.example.puppicasso.domain.user.dto.UserResetPasswordReq;
 import com.example.puppicasso.domain.user.dto.UserSignInResp;
 import com.example.puppicasso.domain.user.dto.UserSignUpResp;
-import com.example.puppicasso.domain.user.dto.UserUpdateProfileResp;
+import com.example.puppicasso.domain.user.dto.UserResetPasswordResp;
 import com.example.puppicasso.domain.user.entity.User;
 import com.example.puppicasso.domain.user.service.UserSignInService;
 import com.example.puppicasso.domain.user.service.UserSignUpService;
-import com.example.puppicasso.domain.user.service.UserUpdateProfileService;
+import com.example.puppicasso.domain.user.service.UserResetPasswordService;
 import com.example.puppicasso.global.jwt.JwtProvider;
-import com.example.puppicasso.global.security.MyUserDetails;
 import com.example.puppicasso.domain.user.dto.UserSignUpReq;
 import com.example.puppicasso.domain.user.dto.UserSignInReq;
-import com.example.puppicasso.domain.user.dto.UserUpdateProfileReq;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,7 +26,7 @@ public class UserController {
 
     private final UserSignInService userSignInService;
     private final UserSignUpService userSignUpService;
-    private final UserUpdateProfileService userUpdateProfileService;
+    private final UserResetPasswordService userResetPasswordService;
 
     @PostMapping("/sign-in")
     public ResponseEntity<UserSignInResp> signIn(@RequestHeader("User-Agent") final String userAgent, @RequestBody @Valid final UserSignInReq userSignInReq) {
@@ -46,15 +41,9 @@ public class UserController {
         return ResponseEntity.ok().body(new UserSignUpResp(user));
     }
 
-    @PutMapping ("/api/users/profile")
-    public ResponseEntity<UserUpdateProfileResp> updateProfile(@AuthenticationPrincipal final MyUserDetails myUserDetails,
-                                                               @RequestPart("image") final MultipartFile file) {
-        // 파일 크기 검사 (4MB 이하)
-        if (file.getSize() > 4 * 1024 * 1024) {
-            throw new MaxImageSizeExceededException();
-        }
-
-        final User user = userUpdateProfileService.updateProfile(myUserDetails, file);
-        return ResponseEntity.ok().body(new UserUpdateProfileResp(user));
+    @PutMapping ("/password-reset")
+    public ResponseEntity<UserResetPasswordResp> resetPassword(@RequestBody @Valid final UserResetPasswordReq userResetPasswordReq) {
+        final User user = userResetPasswordService.resetPassword(userResetPasswordReq);
+        return ResponseEntity.ok().body(new UserResetPasswordResp(user));
     }
 }
