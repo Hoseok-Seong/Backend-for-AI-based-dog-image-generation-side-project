@@ -34,4 +34,8 @@ public class UserInfo extends BaseTimeEntity {
         this.profilePic = profilePic;
         this.grade = grade;
     }
+
+    public void updateProfilePic(byte[] profilePic) {
+        this.profilePic = profilePic;
+    }
 }

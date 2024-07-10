@@ -1,6 +1,8 @@
 package com.example.puppicasso.domain.ai.util;
 import org.apache.commons.io.IOUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -20,6 +22,22 @@ public class ImageUtil {
      */
     public static byte[] downloadImageAsBase64(String imageUrl) {
         try (InputStream in = new URL(imageUrl).openStream()) {
+            byte[] imageBytes = IOUtils.toByteArray(in);
+            return Base64.getEncoder().encode(imageBytes);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 업로드된 MultipartFile 객체를 Base64로 인코딩한 byte[]로 변환합니다.
+     *
+     * @param file Base64 인코딩할 MultipartFile 객체
+     * @return Base64로 인코딩된 이미지 데이터
+     * @throws IOException 입력/출력 예외
+     */
+    public static byte[] encodeMultipartFileToBase64(MultipartFile file) {
+        try (ByteArrayInputStream in = new ByteArrayInputStream(file.getBytes())) {
             byte[] imageBytes = IOUtils.toByteArray(in);
             return Base64.getEncoder().encode(imageBytes);
         } catch (IOException e) {

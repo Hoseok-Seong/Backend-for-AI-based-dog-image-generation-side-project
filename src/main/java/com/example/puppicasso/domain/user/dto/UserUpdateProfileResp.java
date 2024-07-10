@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 public class UserUpdateProfileResp {
     private Long id;
     private String username;
+
     public UserUpdateProfileResp(User user) {
         this.id = user.getId();
         this.username = user.getUsername();
