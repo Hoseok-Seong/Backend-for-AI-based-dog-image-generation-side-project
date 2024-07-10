@@ -25,7 +25,7 @@ public class AIController {
     @PostMapping("/api/models-lab/images")
     public ResponseEntity<AIImageResp> generateModelsLabImages(@AuthenticationPrincipal final MyUserDetails myUserDetails,
                                                      @RequestPart("image") final MultipartFile file,
-                                                     @RequestPart("details") final AIImageReq aiImageReq) throws Exception {
+                                                     @RequestPart("details") final AIImageReq aiImageReq) {
         // 파일 크기 검사 (4MB 이하)
         if (file.getSize() > 4 * 1024 * 1024) {
             throw new MaxImageSizeExceededException();

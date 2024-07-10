@@ -19,7 +19,7 @@ public class AIImageToEntityService {
 
     private final GalleryRepository galleryRepository;
 
-    public AIImageResp saveAIImageToEntity(final String APIResponse, final MyUserDetails myUserDetails) throws Exception {
+    public AIImageResp saveAIImageToEntity(final String APIResponse, final MyUserDetails myUserDetails) {
         String generatedImageUrl = JsonUtil.extractImageUrl(APIResponse);
         String imageName = ImageUtil.generateUniqueFileName(myUserDetails.getUser().getId());
         Type imageType = Type.AI_GENERATED;

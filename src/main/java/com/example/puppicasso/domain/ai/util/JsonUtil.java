@@ -8,7 +8,6 @@ public class JsonUtil {
      *
      * @param jsonResponse JSON 응답 문자열
      * @return 첫 번째 이미지 URL
-     * @throws Exception JSON 파싱 예외
      */
     public static String extractImageUrl(String jsonResponse) {
         JSONObject jsonObject = new JSONObject(jsonResponse);

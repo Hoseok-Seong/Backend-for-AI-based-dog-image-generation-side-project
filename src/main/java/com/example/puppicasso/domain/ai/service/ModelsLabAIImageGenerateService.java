@@ -1,6 +1,7 @@
 package com.example.puppicasso.domain.ai.service;
 
 import com.example.puppicasso.global.config.ModelsLabConfig;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
@@ -21,7 +22,7 @@ public class ModelsLabAIImageGenerateService {
 
     private final ModelsLabConfig modelsLabConfig;
 
-    public String generateModelsLabAIImage(final String imageUrl, final String prompt) throws IOException {
+    public String generateModelsLabAIImage(final String imageUrl, final String prompt) {
         HttpHeaders headers = modelsLabConfig.modelsLabHttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -42,7 +43,13 @@ public class ModelsLabAIImageGenerateService {
         requestBody.put("track_id", null);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        String jsonRequestBody = objectMapper.writeValueAsString(requestBody);
+        String jsonRequestBody = null;
+
+        try {
+            jsonRequestBody = objectMapper.writeValueAsString(requestBody);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
 
         HttpEntity<String> requestEntity = new HttpEntity<>(jsonRequestBody, headers);
 

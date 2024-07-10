@@ -18,7 +18,7 @@ public class ModelsLabFacadeService {
     private final ModelsLabAIImageGenerateService modelsLabAIImageGenerateService;
     private final AIImageToEntityService aiImageToEntityService;
 
-    public AIImageResp generateModelsLabImages(final MyUserDetails myUserDetails, final MultipartFile file, final AIImageReq aiImageReq) throws Exception {
+    public AIImageResp generateModelsLabImages(final MyUserDetails myUserDetails, final MultipartFile file, final AIImageReq aiImageReq) {
 
         String reqImageUrl = imageFileService.saveFileAndGetFileUrl(file);
 

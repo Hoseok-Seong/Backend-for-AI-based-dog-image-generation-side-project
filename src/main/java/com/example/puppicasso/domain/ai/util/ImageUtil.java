@@ -1,7 +1,6 @@
 package com.example.puppicasso.domain.ai.util;
 import org.apache.commons.io.IOUtils;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -24,7 +23,7 @@ public class ImageUtil {
             byte[] imageBytes = IOUtils.toByteArray(in);
             return Base64.getEncoder().encode(imageBytes);
         } catch (IOException e) {
-            throw new IOException(e);
+            throw new RuntimeException(e);
         }
     }
 
