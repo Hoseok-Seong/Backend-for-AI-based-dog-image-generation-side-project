@@ -48,7 +48,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authentication);
         } catch (SignatureVerificationException sve) {
             log.error("토큰 검증 실패");
-            throw new InvalidInputException("로그인한지 오래되어 토큰이 검증되지 않았습니다.", ErrorCode.INVALID_ACCESS_TOKEN);
+            throw new InvalidInputException("토큰이 검증되지 않았습니다. 다시 로그인해주세요.", ErrorCode.INVALID_ACCESS_TOKEN);
         } catch (TokenExpiredException tee) {
             log.error("토큰 만료");
             throw new InvalidInputException("토큰이 만료되었습니다. 다시 로그인해주세요.", ErrorCode.INVALID_ACCESS_TOKEN);
