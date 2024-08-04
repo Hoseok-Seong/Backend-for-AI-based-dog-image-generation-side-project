@@ -44,7 +44,6 @@ cloud:
       static: ${AWS_S3_REGION}
     stack:
       auto: false
-
 #  mail:
 #    host: smtp.gmail.com
 #    port: 587
