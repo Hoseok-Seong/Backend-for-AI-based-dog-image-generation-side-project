@@ -50,7 +50,3 @@ tasks.named('test') {
 jar {
     enabled = false
 }
-
-bootJar {
-    archiveFileName.set('Puppicasso-SNAPSHOT.jar')
-}

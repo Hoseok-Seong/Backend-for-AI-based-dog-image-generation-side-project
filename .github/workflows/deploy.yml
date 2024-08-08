@@ -52,7 +52,7 @@ jobs:
           sudo docker stop my-app || true
           sudo docker rm my-app || true
           sudo docker rmi my-app || true
-          sudo docker run -p 8080:8080 --name my-app -e SPRING_DATASOURCE_URL=${{ secrets.DB_URL }} -e SPRING_DATASOURCE_USERNAME=${{ secrets.DB_USERNAME }} -e SPRING_DATASOURCE_PASSWORD=${{ secrets.DB_PASSWORD }} -d my-app-image
+          sudo docker run -p 8080:8080 --name my-app -e SPRING_DATASOURCE_URL=${{ secrets.DB_URL }} -e SPRING_DATASOURCE_USERNAME=${{ secrets.DB_USERNAME }} -e SPRING_DATASOURCE_PASSWORD=${{ secrets.DB_PASSWORD }} -d my-app
 
 #          sudo docker kill ${{ secrets.PROJECT_NAME }}
 #          sudo docker rm -f ${{ secrets.PROJECT_NAME }}
