@@ -65,7 +65,7 @@ jobs:
       env:
         SSH_PRIVATE_KEY: ${{ secrets.EC2_KEY }}
         REMOTE_HOST: ${{ secrets.EC2_HOST }}
-        REMOTE_USERNAME: ${{ secrets.EC2_USERNAME }}
+        REMOTE_USER: ${{ secrets.EC2_USERNAME }}
       with:
         args: |
           sudo docker stop my-app || true
