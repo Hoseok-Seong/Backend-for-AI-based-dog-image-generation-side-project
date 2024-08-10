@@ -64,8 +64,8 @@ jobs:
       uses: easingthemes/ssh-deploy@v2.1.5
       env:
         SSH_PRIVATE_KEY: ${{ secrets.EC2_KEY }}
-        SSH_HOST: ${{ secrets.EC2_HOST }}
-        SSH_USERNAME: ${{ secrets.EC2_USERNAME }}
+        REMOTE_HOST: ${{ secrets.EC2_HOST }}
+        REMOTE_USERNAME: ${{ secrets.EC2_USERNAME }}
       with:
         args: |
           sudo docker stop my-app || true
