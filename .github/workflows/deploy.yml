@@ -36,9 +36,6 @@ jobs:
     - name: DockerHub Push
       run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}
 
-#    - name: Build Docker Image
-#      run: docker build -t my-app .
-
     - name: Application Run
       uses: appleboy/ssh-action@v0.1.6
       with:
@@ -58,6 +55,9 @@ jobs:
           -e SPRING_DATASOURCE_USERNAME=${{ secrets.DB_USERNAME }} \
           -e SPRING_DATASOURCE_PASSWORD=${{ secrets.DB_PASSWORD }} \
           -d ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}
+
+#    - name: Build Docker Image
+#      run: docker build -t my-app .
 
 #    - name: Application Run
 #      uses: easingthemes/ssh-deploy@v2.1.5
