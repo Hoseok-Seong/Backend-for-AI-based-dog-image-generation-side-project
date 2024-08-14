@@ -44,7 +44,7 @@ jobs:
         key: ${{ secrets.EC2_KEY }}
 
         script: |
-          sudo docker kill ${{ secrets.PROJECT_NAME }} || true
+          sudo docker stop ${{ secrets.PROJECT_NAME }} || true
           sudo docker rm -f ${{ secrets.PROJECT_NAME }} || true
           sudo docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}:latest || true
           sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}:latest
