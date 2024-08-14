@@ -44,10 +44,11 @@ jobs:
         key: ${{ secrets.EC2_KEY }}
 
         script: |
+          echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
           sudo docker stop ${{ secrets.PROJECT_NAME }} || true
           sudo docker rm -f ${{ secrets.PROJECT_NAME }} || true
           sudo docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}:latest || true
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
           sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}:latest
 
           sudo docker run -p ${{ secrets.PORT }}:${{ secrets.PORT }} \
