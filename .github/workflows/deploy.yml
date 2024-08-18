@@ -12,11 +12,15 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Create .env file from secrets
-      run: |
-        touch ./.env.production
-        
-        echo "{{ secrets.PRODUCTION_ENV }}" >> ./.env.production
+    - name: Create .env file on EC2
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_KEY }}
+        script: |
+          touch ./.env.production
+          echo "{{ secrets.PRODUCTION_ENV }}" >> ./.env.production
 #        echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
 #        echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
 #        echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
