@@ -69,6 +69,8 @@ jobs:
         key: ${{ secrets.EC2_KEY }}
 
         script: |
+          cd /home/ubuntu
+          
           echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
           sudo docker stop ${{ secrets.PROJECT_NAME }} || true
