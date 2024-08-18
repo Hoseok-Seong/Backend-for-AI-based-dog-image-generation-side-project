@@ -21,8 +21,8 @@ public class MainController {
         return ResponseEntity.ok().body(mainPageDataResp);
     }
 
-    @GetMapping("/")
+    @GetMapping("/server-test")
     public String test() {
-        return "테스트 완료";
+        return "Success";
     }
 }

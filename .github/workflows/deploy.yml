@@ -35,7 +35,6 @@ jobs:
         echo "PUPPICASSO_API_KEY=${{ secrets.PUPPICASSO_API_KEY }}" >> .env
         echo "PUPPICASSO_MODELSLAB_KEY=${{ secrets.PUPPICASSO_MODELSLAB_KEY }}" >> .env
         echo "PORT=${{ secrets.PORT }}" >> .env
-        echo "REDIS_PORT=${{ secrets.REDIS_PORT }}" >> .env
 
     - name: Set up JDK 17
       uses: actions/setup-java@v4
@@ -82,3 +81,13 @@ jobs:
           -e SPRING_DATASOURCE_USERNAME="${{ secrets.DB_USERNAME }}" \
           -e SPRING_DATASOURCE_PASSWORD="${{ secrets.DB_PASSWORD }}" \
           -d ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}:latest
+
+    - name: Show Spring Logs
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_KEY }}
+
+        script: |
+          sudo docker logs -f ${{ secrets.PROJECT_NAME }}
