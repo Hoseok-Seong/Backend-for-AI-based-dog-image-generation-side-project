@@ -19,8 +19,7 @@ jobs:
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_KEY }}
         script: |
-          touch ./.env.production
-          echo "{{ secrets.PRODUCTION_ENV }}" >> ./.env.production
+          echo "${{ secrets.PRODUCTION_ENV }}" > /home/ubuntu/.env.production
 #        echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
 #        echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
 #        echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
