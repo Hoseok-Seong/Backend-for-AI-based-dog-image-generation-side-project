@@ -12,6 +12,29 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Create .env file from secrets
+      run: |
+        echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
+        echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+        echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
+        echo "DB_URL=${{ secrets.DB_URL }}" >> .env
+        echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
+        echo "DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}" >> .env
+        echo "DOCKERHUB_PASSWORD=${{ secrets.DOCKERHUB_PASSWORD }}" >> .env
+        echo "DOCKER_HUB_ACCESS_TOKEN=${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" >> .env
+        echo "EC2_HOST=${{ secrets.EC2_HOST }}" >> .env
+        echo "EC2_KEY=${{ secrets.EC2_KEY }}" >> .env
+        echo "EC2_USERNAME=${{ secrets.EC2_USERNAME }}" >> .env
+        echo "JWT_ACCESS_HS512_SECRET=${{ secrets.JWT_ACCESS_HS512_SECRET }}" >> .env
+        echo "JWT_ACCESS_TOKEN_EXP=${{ secrets.JWT_ACCESS_TOKEN_EXP }}" >> .env
+        echo "JWT_REFRESH_HS512_SECRET=${{ secrets.JWT_REFRESH_HS512_SECRET }}" >> .env
+        echo "JWT_REFRESH_TOKEN_EXP=${{ secrets.JWT_REFRESH_TOKEN_EXP }}" >> .env
+        echo "MAIL_USERNAME=${{ secrets.MAIL_USERNAME }}" >> .env
+        echo "MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD }}" >> .env
+        echo "PROJECT_NAME=${{ secrets.PROJECT_NAME }}" >> .env
+        echo "PUPPICASSO_API_KEY=${{ secrets.PUPPICASSO_API_KEY }}" >> .env
+        echo "PUPPICASSO_MODELSLAB_KEY=${{ secrets.PUPPICASSO_MODELSLAB_KEY }}" >> .env
+
     - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:

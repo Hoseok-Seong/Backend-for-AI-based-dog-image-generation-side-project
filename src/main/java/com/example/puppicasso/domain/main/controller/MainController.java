@@ -20,4 +20,9 @@ public class MainController {
         final MainPageDataResp mainPageDataResp = mainPageDataService.getMainPageData(myUserDetails);
         return ResponseEntity.ok().body(mainPageDataResp);
     }
+
+    @GetMapping("/")
+    public String test() {
+        return "테스트 완료";
+    }
 }
