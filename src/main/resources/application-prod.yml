@@ -20,7 +20,7 @@ spring:
     open-in-view: false
   data:
     redis:
-      host: localhost
+      host: ${DB_HOST}
       port: 6379
   servlet:
     multipart:
