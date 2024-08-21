@@ -58,7 +58,7 @@ public class SecurityConfig {
                             log.error("에러 : 인증 실패 : " + authException.getMessage());
                             response.setContentType("text/plain; charset=utf-8");
                             response.setStatus(401);
-                            response.getWriter().println("인증 실패");
+                            response.getWriter().println("[JWT 필터] 토큰이 존재하지 않습니다");
                         }))
                 .exceptionHandling(exceptionHandling -> exceptionHandling.accessDeniedHandler(
                         (request, response, accessDeniedException) -> {
@@ -68,7 +68,7 @@ public class SecurityConfig {
                             log.error("에러 : 접근 실패 : " + accessDeniedException.getMessage());
                             response.setContentType("text/plain; charset=utf-8");
                             response.setStatus(403);
-                            response.getWriter().println("접근 실패");
+                            response.getWriter().println("[JWT 필터] 접근이 거부되었습니다");
                         }));
 
         return http.build();
