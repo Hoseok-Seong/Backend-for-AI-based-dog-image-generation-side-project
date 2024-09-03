@@ -8,22 +8,25 @@ import java.util.Map;
 
 public class JsonResponse {
     private String statusCode;
+    private String code;
     private String message;
     private Object data;
 
-    public JsonResponse(String statusCode, String message, Object data) {
+    public JsonResponse(String statusCode, String code, String message, Object data) {
         this.statusCode = statusCode;
+        this.code = code;
         this.message = message;
         this.data = data;
     }
 
-    public JsonResponse(String statusCode, String message) {
-        this(statusCode, message, null);
+    public JsonResponse(String statusCode, String code, String message) {
+        this(statusCode, code, message, null);
     }
 
     public String toJson() throws JsonProcessingException {
         Map<String, Object> jsonResponse = new HashMap<>();
         jsonResponse.put("statusCode", statusCode);
+        jsonResponse.put("code", code);
         jsonResponse.put("message", message);
         jsonResponse.put("data", data);
 
@@ -37,6 +40,14 @@ public class JsonResponse {
 
     public void setStatusCode(String statusCode) {
         this.statusCode = statusCode;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getMessage() {

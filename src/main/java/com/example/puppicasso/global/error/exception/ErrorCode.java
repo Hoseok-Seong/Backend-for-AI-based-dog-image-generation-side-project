@@ -14,8 +14,9 @@ public enum ErrorCode {
     IO_EXCEPTION(500, "C007", "IO Exception"),
 
     // JWT
-    INVALID_ACCESS_TOKEN(400, "J001", "Invalid Access Token"),
-    INVALID_REFRESH_TOKEN(400, "J002", "Invalid Refresh Token"),
+    INVALID_ACCESS_TOKEN_VERIFICATION_FAILED(400, "JE01", "Invalid Access Token"),
+    INVALID_ACCESS_TOKEN_ACCESS_DENIED(400, "JE02", "Access Token Access Denied"),
+    INVALID_REFRESH_TOKEN(400, "JE03", "Invalid Refresh Token"),
 
     // USER
     SIGNIN_PASSWORD_MISMATCH(400, "U001", "Signin Password Mismatch"),

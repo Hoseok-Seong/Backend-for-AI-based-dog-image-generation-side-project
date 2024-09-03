@@ -23,10 +23,6 @@ public class AccessTokenGenerateService {
     private final UserFindDao userFindDao;
 
     public NewAccessTokenResp generateNewAccessToken(final String userAgent, final NewAccessTokenReq newAccessTokenReq) {
-        if (userRepository.existsById(newAccessTokenReq.getUserId())) {
-            throw new UserNotFoundException(newAccessTokenReq.getUserId());
-        }
-
         refreshTokenDao.validateRefreshToken(newAccessTokenReq.getUserId(), newAccessTokenReq.getRefreshToken());
 
         final User user = userFindDao.findById(newAccessTokenReq.getUserId());
