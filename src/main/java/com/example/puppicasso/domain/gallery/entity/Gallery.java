@@ -27,20 +27,19 @@ public class Gallery extends BaseTimeEntity {
     @Column(name = "type", nullable = false)
     private Type type;
 
-    @Lob
-    @Column(name = "data", nullable = false)
-    private byte[] data;
+    @Column(name = "image_url", nullable = false)
+    private String imageUrl;
 
     @Column(name = "is_deleted", nullable = false)
     private Boolean isDeleted;
 
     @Builder
-    public Gallery(Long id, Long userId, String name, Type type, byte[] data) {
+    public Gallery(Long id, Long userId, String name, Type type, String imageUrl) {
         this.id = id;
         this.userId = userId;
         this.name = name;
         this.type = type;
-        this.data = data;
+        this.imageUrl = imageUrl;
         this.isDeleted = false;
     }
 }

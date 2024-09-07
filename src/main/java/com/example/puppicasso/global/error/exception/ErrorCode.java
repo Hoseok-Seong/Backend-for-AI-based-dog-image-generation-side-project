@@ -24,6 +24,9 @@ public enum ErrorCode {
 
     // AI
     MAX_IMAGE_SIZE_EXCEEDED(400, "A001", "Max Image Size is Exceeded"),
+    INVALID_IMAGE_FILE_EXCEPTION(400, "A002", "Invalid Image File"),
+    S3_IO_EXCEPTION(400, "A003", "S3 IO Exception"),
+    TIKA_IO_EXCEPTION(400, "A004", "TIKA IO Exception"),
     ;
 
     private final String code;

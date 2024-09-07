@@ -23,9 +23,8 @@ public class AIImageToEntityService {
         String generatedImageUrl = JsonUtil.extractImageUrl(APIResponse);
         String imageName = ImageUtil.generateUniqueFileName(myUserDetails.getUser().getId());
         Type imageType = Type.AI_GENERATED;
-        byte[] imageData = ImageUtil.downloadImageAsBase64(generatedImageUrl);
 
-        GallerySaveReq gallerySaveReq = new GallerySaveReq(myUserDetails, imageName, imageType, imageData);
+        GallerySaveReq gallerySaveReq = new GallerySaveReq(myUserDetails, imageName, imageType, generatedImageUrl);
 
         final Gallery gallery = galleryRepository.save(gallerySaveReq.toEntity());
 

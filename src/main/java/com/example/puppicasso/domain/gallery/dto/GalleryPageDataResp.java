@@ -11,11 +11,11 @@ import java.util.stream.Collectors;
 @Getter
 @NoArgsConstructor
 public class GalleryPageDataResp {
-    private List<String> fileData;
+    private List<String> imageUrls;
 
     public GalleryPageDataResp(List<Gallery> galleries) {
-        this.fileData = galleries.stream()
-                .map(gallery -> Base64.getEncoder().encodeToString(gallery.getData()))
+        this.imageUrls = galleries.stream()
+                .map(Gallery::getImageUrl)
                 .collect(Collectors.toList());
     }
 }

@@ -17,15 +17,15 @@ public class MainPageDataResp {
     private String subscriptionName;
     private int usedGenerateCount;
     private int leftGenerateCount;
-    private List<String> fileData;
+    private List<String> imageUrls;
 
     public MainPageDataResp(UserInfo userInfo, Subscription subscription, List<Gallery> galleries) {
         this.gradeName = userInfo.getGrade().getName();
         this.subscriptionName = subscription.getType().getName();
         this.usedGenerateCount = subscription.getUsedGenerateCount();
         this.leftGenerateCount = subscription.getMaxGenerateCount() - subscription.getUsedGenerateCount();
-        this.fileData = galleries.stream()
-                .map(gallery -> Base64.getEncoder().encodeToString(gallery.getData()))
+        this.imageUrls = galleries.stream()
+                .map(Gallery::getImageUrl)
                 .collect(Collectors.toList());
     }
 }

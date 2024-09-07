@@ -12,13 +12,13 @@ public class GallerySaveReq {
     private Long userId;
     private String name;
     private Type type;
-    private byte[] data;
+    private String imageUrl;
 
-    public GallerySaveReq(final MyUserDetails myUserDetails, final String imageName, final Type imageType, final byte[] imageData) {
+    public GallerySaveReq(final MyUserDetails myUserDetails, final String imageName, final Type imageType, final String imageUrl) {
         this.userId = myUserDetails.getUser().getId();
         this.name = imageName;
         this.type = imageType;
-        this.data = imageData;
+        this.imageUrl = imageUrl;
     }
 
     public Gallery toEntity() {
@@ -26,7 +26,7 @@ public class GallerySaveReq {
                 .userId(userId)
                 .name(name)
                 .type(type)
-                .data(data)
+                .imageUrl(imageUrl)
                 .build();
     }
 }
