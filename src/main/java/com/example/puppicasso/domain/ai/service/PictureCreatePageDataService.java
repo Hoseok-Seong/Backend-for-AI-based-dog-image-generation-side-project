@@ -4,6 +4,7 @@ import com.example.puppicasso.domain.ai.dto.PictureCreatePageDataResp;
 import com.example.puppicasso.domain.ai.prompt.DogAttributes;
 import com.example.puppicasso.domain.ai.prompt.DogBreed;
 import com.example.puppicasso.domain.ai.prompt.DogCoatColor;
+import com.example.puppicasso.domain.ai.prompt.Expression;
 import com.example.puppicasso.domain.ai.prompt.Theme;
 import com.example.puppicasso.global.security.MyUserDetails;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class PictureCreatePageDataService {
 
         response.setBreeds(getAttributes(DogBreed.values()));
         response.setSizes(getAttributes(DogAttributes.SIZE_SMALL, DogAttributes.SIZE_MEDIUM, DogAttributes.SIZE_LARGE));
-        response.setExpressions(getAttributes(DogAttributes.EXPRESSION_HAPPY, DogAttributes.EXPRESSION_SAD, DogAttributes.EXPRESSION_ALERT, DogAttributes.EXPRESSION_RELAXED));
+        response.setExpressions(getAttributes(Expression.values()));
         response.setPoses(getAttributes(DogAttributes.POSE_SITTING, DogAttributes.POSE_STANDING, DogAttributes.POSE_RUNNING, DogAttributes.POSE_LYING_DOWN));
         response.setThemes(getAttributes(Theme.values()));
 
@@ -45,7 +46,7 @@ public class PictureCreatePageDataService {
         response.setNoseShapes(getAttributes(DogAttributes.NOSE_LONG, DogAttributes.NOSE_SHORT, DogAttributes.NOSE_FLAT));
         response.setFaceShapes(getAttributes(DogAttributes.FACE_LONG, DogAttributes.FACE_ROUND, DogAttributes.FACE_SQUARE));
         response.setTailShapes(getAttributes(DogAttributes.TAIL_CURLED, DogAttributes.TAIL_STRAIGHT, DogAttributes.TAIL_BUSHY));
-        response.setExpressions(getAttributes(DogAttributes.EXPRESSION_HAPPY, DogAttributes.EXPRESSION_SAD, DogAttributes.EXPRESSION_ALERT, DogAttributes.EXPRESSION_RELAXED));
+        response.setExpressions(getAttributes(Expression.values()));
         response.setPoses(getAttributes(DogAttributes.POSE_SITTING, DogAttributes.POSE_STANDING, DogAttributes.POSE_RUNNING, DogAttributes.POSE_LYING_DOWN));
         response.setCoatColors(getAttributes(DogCoatColor.values()));
 
@@ -73,6 +74,12 @@ public class PictureCreatePageDataService {
     private List<PictureCreatePageDataResp.Attribute> getAttributes(Theme... themes) {
         return Arrays.stream(themes)
                 .map(theme -> new PictureCreatePageDataResp.Attribute(theme.getEnglishDescription(), theme.getKoreanDescription()))
+                .collect(Collectors.toList());
+    }
+
+    private List<PictureCreatePageDataResp.Attribute> getAttributes(Expression... expressions) {
+        return Arrays.stream(expressions)
+                .map(expression -> new PictureCreatePageDataResp.Attribute(expression.getEnglishDescription(), expression.getKoreanDescription()))
                 .collect(Collectors.toList());
     }
 }
