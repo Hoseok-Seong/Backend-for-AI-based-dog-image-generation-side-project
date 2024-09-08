@@ -28,9 +28,9 @@ public class ModelsLabAIImageGenerateService {
 
         Map<String, Object> requestBody = new HashMap<>();
         requestBody.put("key", modelsLabConfig.getSecretKey());
+        requestBody.put("init_image", imageUrl);
         requestBody.put("prompt", prompt);
         requestBody.put("negative_prompt", "bad quality");
-        requestBody.put("init_image", imageUrl);
         requestBody.put("width", "512");
         requestBody.put("height", "512");
         requestBody.put("samples", "1");
@@ -53,7 +53,6 @@ public class ModelsLabAIImageGenerateService {
 
         HttpEntity<String> requestEntity = new HttpEntity<>(jsonRequestBody, headers);
 
-        // Send request
         ResponseEntity<String> response = modelsLabConfig.modelsLabRestTemplate().postForEntity(
                 "https://modelslab.com/api/v3/img2img",
                 requestEntity,

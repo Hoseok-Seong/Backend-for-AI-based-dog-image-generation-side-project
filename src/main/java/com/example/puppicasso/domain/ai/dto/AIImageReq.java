@@ -12,7 +12,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class AIImageReq {
-    // 강아지 특성
     private String breed;
     private String sizeDesc;
     private String coatLength;
@@ -25,9 +24,10 @@ public class AIImageReq {
     private String tailShape;
     private String expression;
     private String pose;
+    private String theme;
 
     @Builder
-    AIImageReq(String breed, String sizeDesc, String coatLength, String coatColor, String furTexture, String eyeColor, String earShape, String noseShape, String faceShape, String tailShape, String expression, String pose) {
+    AIImageReq(String breed, String sizeDesc, String coatLength, String coatColor, String furTexture, String eyeColor, String earShape, String noseShape, String faceShape, String tailShape, String expression, String pose, String theme) {
         this.breed = breed;
         this.sizeDesc = sizeDesc;
         this.coatLength = coatLength;
@@ -40,5 +40,6 @@ public class AIImageReq {
         this.tailShape = tailShape;
         this.expression = expression;
         this.pose = pose;
+        this.theme = theme;
     }
 }

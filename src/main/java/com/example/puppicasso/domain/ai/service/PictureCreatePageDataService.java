@@ -4,6 +4,7 @@ import com.example.puppicasso.domain.ai.dto.PictureCreatePageDataResp;
 import com.example.puppicasso.domain.ai.prompt.DogAttributes;
 import com.example.puppicasso.domain.ai.prompt.DogBreed;
 import com.example.puppicasso.domain.ai.prompt.DogCoatColor;
+import com.example.puppicasso.domain.ai.prompt.Theme;
 import com.example.puppicasso.global.security.MyUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,19 @@ import java.util.stream.Collectors;
 public class PictureCreatePageDataService {
 
     public PictureCreatePageDataResp getPictureCreatePageData(final MyUserDetails myUserDetails) {
+
+        PictureCreatePageDataResp response = new PictureCreatePageDataResp();
+
+        response.setBreeds(getAttributes(DogBreed.values()));
+        response.setSizes(getAttributes(DogAttributes.SIZE_SMALL, DogAttributes.SIZE_MEDIUM, DogAttributes.SIZE_LARGE));
+        response.setExpressions(getAttributes(DogAttributes.EXPRESSION_HAPPY, DogAttributes.EXPRESSION_SAD, DogAttributes.EXPRESSION_ALERT, DogAttributes.EXPRESSION_RELAXED));
+        response.setPoses(getAttributes(DogAttributes.POSE_SITTING, DogAttributes.POSE_STANDING, DogAttributes.POSE_RUNNING, DogAttributes.POSE_LYING_DOWN));
+        response.setThemes(getAttributes(Theme.values()));
+
+        return response;
+    }
+
+    public PictureCreatePageDataResp getPictureCreatePageDataAllParams(final MyUserDetails myUserDetails) {
 
         PictureCreatePageDataResp response = new PictureCreatePageDataResp();
 
@@ -53,6 +67,12 @@ public class PictureCreatePageDataService {
     private List<PictureCreatePageDataResp.Attribute> getAttributes(DogBreed... breeds) {
         return Arrays.stream(breeds)
                 .map(breed -> new PictureCreatePageDataResp.Attribute(breed.getEnglishName(), breed.getKoreanName()))
+                .collect(Collectors.toList());
+    }
+
+    private List<PictureCreatePageDataResp.Attribute> getAttributes(Theme... themes) {
+        return Arrays.stream(themes)
+                .map(theme -> new PictureCreatePageDataResp.Attribute(theme.getEnglishDescription(), theme.getKoreanDescription()))
                 .collect(Collectors.toList());
     }
 }
