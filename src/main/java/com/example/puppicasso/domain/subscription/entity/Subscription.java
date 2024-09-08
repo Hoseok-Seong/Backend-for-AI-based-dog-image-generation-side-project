@@ -34,6 +34,9 @@ public class Subscription extends BaseTimeEntity {
     @Column(nullable = false)
     private int usedGenerateCount;
 
+    @Column(name = "is_active", nullable = false)
+    private Boolean isActive;
+
     private LocalDateTime expirationDate;
 
     @Builder
@@ -44,6 +47,11 @@ public class Subscription extends BaseTimeEntity {
         this.price = type.getPrice();
         this.maxGenerateCount = type.getMaxGenerateCount();
         this.usedGenerateCount = type.getUsedGenerateCount();
+        this.isActive = true;
         this.expirationDate = type.getExpirationDate();
+    }
+
+    public void increaseUsedGenerateCount() {
+        this.usedGenerateCount++;
     }
 }

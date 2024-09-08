@@ -8,6 +8,8 @@ import com.example.puppicasso.domain.ai.exception.MaxImageSizeExceededException;
 import com.example.puppicasso.domain.ai.exception.TikaIoException;
 import com.example.puppicasso.domain.ai.service.ModelsLabFacadeService;
 import com.example.puppicasso.domain.ai.service.PictureCreatePageDataService;
+import com.example.puppicasso.domain.subscription.dao.SubscriptionDao;
+import com.example.puppicasso.domain.subscription.exception.InvalidSubscriptionException;
 import com.example.puppicasso.global.security.MyUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.apache.tika.Tika;
@@ -27,14 +29,15 @@ public class AIController {
     private final ModelsLabFacadeService modelsLabFacadeService;
     private final PictureCreatePageDataService pictureCreatePageDataService;
     private final Tika tika;
+    private final SubscriptionDao subscriptionDao;
 
     @PostMapping("/api/models-lab/images")
     public ResponseEntity<AIImageResp> generateModelsLabImages(@AuthenticationPrincipal final MyUserDetails myUserDetails,
                                                      @RequestPart("image") final MultipartFile file,
                                                      @RequestPart("details") final AIImageReq aiImageReq) {
-
-        // TODO: user의 Subscription을 확인해서 남은 이용권 횟수 검증하는 로직 넣기
-        // TODO: SubscriptionDao 만들어야 함
+        if (!subscriptionDao.validateSubscription(myUserDetails.getUser().getId())) {
+            throw new InvalidSubscriptionException();
+        }
         
         // 파일 크기 검사 (10MB 이하)
         if (file.getSize() > 10 * 1024 * 1024) {

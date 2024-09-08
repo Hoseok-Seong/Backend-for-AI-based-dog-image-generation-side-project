@@ -27,6 +27,9 @@ public enum ErrorCode {
     INVALID_IMAGE_FILE_EXCEPTION(400, "A002", "Invalid Image File"),
     S3_IO_EXCEPTION(400, "A003", "S3 IO Exception"),
     TIKA_IO_EXCEPTION(400, "A004", "TIKA IO Exception"),
+
+    // Subscription
+    INVALID_SUBSCRIPTION(400, "S001", "Invalid Subscription"),
     ;
 
     private final String code;
