@@ -47,9 +47,14 @@ public enum DogAttributes {
 
     // Expression
     EXPRESSION_HAPPY("Happy", "행복한"),
+    EXPRESSION_CHILL("Chill", "여유로운"),
+    EXPRESSION_RELAXED("Relaxed", "편안한"),
+    EXPRESSION_EXCITED("Excited", "신난"),
+    EXPRESSION_SURPRISED("Surprised", "놀란"),
+    EXPRESSION_SCARED("Scared", "무서워하는"),
+    EXPRESSION_BORED("Bored", "지루한"),
     EXPRESSION_SAD("Sad", "슬픈"),
     EXPRESSION_ALERT("Alert", "경계하는"),
-    EXPRESSION_RELAXED("Relaxed", "편안한"),
 
     // Pose
     POSE_SITTING("Sitting", "앉아 있는"),
