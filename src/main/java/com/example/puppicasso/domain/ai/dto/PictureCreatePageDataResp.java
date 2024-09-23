@@ -23,6 +23,7 @@ public class PictureCreatePageDataResp {
     private List<Attribute> expressions;
     private List<Attribute> poses;
     private List<Attribute> coatColors;
+    private List<Attribute> themes;
 
     public static class Attribute {
         @JsonProperty("value")

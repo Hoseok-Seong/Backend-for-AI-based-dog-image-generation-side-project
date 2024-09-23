@@ -1,5 +1,6 @@
 package com.example.puppicasso.global.security;
 
+import com.example.puppicasso.global.jwt.JsonResponse;
 import com.example.puppicasso.global.jwt.JwtAuthorizationFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -52,23 +53,27 @@ public class SecurityConfig {
                         .anyRequest().permitAll())
                 .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(
                         (request, response, authException) -> {
-                            log.debug("디버그 : 인증 실패 : " + authException.getMessage());
-                            log.info("인포 : 인증 실패 : " + authException.getMessage());
-                            log.warn("워닝 : 인증 실패 : " + authException.getMessage());
-                            log.error("에러 : 인증 실패 : " + authException.getMessage());
-                            response.setContentType("text/plain; charset=utf-8");
+                            log.error("액세스 토큰 검증 실패 : " + authException.getMessage());
+
+                            JsonResponse jsonResponse = new JsonResponse("401", "JE01", "액세스 토큰 검증 실패");
+                            String jsonString = jsonResponse.toJson();
+
                             response.setStatus(401);
-                            response.getWriter().println("인증 실패");
+                            response.setContentType("application/json");
+                            response.setCharacterEncoding("UTF-8");
+                            response.getWriter().println(jsonString);
                         }))
                 .exceptionHandling(exceptionHandling -> exceptionHandling.accessDeniedHandler(
                         (request, response, accessDeniedException) -> {
-                            log.debug("디버그 : 접근 실패 : " + accessDeniedException.getMessage());
-                            log.info("인포 : 접근 실패 : " + accessDeniedException.getMessage());
-                            log.warn("워닝 : 접근 실패 : " + accessDeniedException.getMessage());
-                            log.error("에러 : 접근 실패 : " + accessDeniedException.getMessage());
-                            response.setContentType("text/plain; charset=utf-8");
+                            log.error("액세스 토큰 접근 실패 : " + accessDeniedException.getMessage());
+
+                            JsonResponse jsonResponse = new JsonResponse("401", "JE02", "액세스 토큰 접근 실패");
+                            String jsonString = jsonResponse.toJson();
+
                             response.setStatus(403);
-                            response.getWriter().println("접근 실패");
+                            response.setContentType("application/json");
+                            response.setCharacterEncoding("UTF-8");
+                            response.getWriter().println(jsonString);
                         }));
 
         return http.build();

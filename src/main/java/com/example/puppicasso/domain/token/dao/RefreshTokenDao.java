@@ -17,9 +17,7 @@ public class RefreshTokenDao {
     private final RefreshTokenRedisRepository refreshTokenRedisRepository;
 
     public RefreshTokenRedis findById(final Long userId) {
-        final Optional<RefreshTokenRedis> refreshTokenRedis = refreshTokenRedisRepository.findById(userId);
-        refreshTokenRedis.orElseThrow(() -> new RefreshTokenNotFoundException(userId));
-        return refreshTokenRedis.get();
+        return refreshTokenRedisRepository.findById(userId).orElse(null);
     }
 
     public void validateRefreshToken(final Long userId, final String refreshToken) {
@@ -34,6 +32,10 @@ public class RefreshTokenDao {
     }
 
     public void deleteRefreshToken(final Long userId) {
-        refreshTokenRedisRepository.delete(findById(userId));
+        RefreshTokenRedis refreshToken = findById(userId);
+
+        if (refreshToken != null) {
+            refreshTokenRedisRepository.delete(refreshToken);
+        }
     }
 }

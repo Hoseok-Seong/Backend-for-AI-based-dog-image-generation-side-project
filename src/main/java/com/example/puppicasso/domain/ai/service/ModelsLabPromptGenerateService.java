@@ -10,6 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class ModelsLabPromptGenerateService {
 
     public String generateModelsLabPrompt(final AIImageReq aiImageReq) {
-        return PromptUtil.generateModelsLabPrompt(aiImageReq);
+        return PromptUtil.generateModelsLabPromptTheme(aiImageReq);
     }
 }

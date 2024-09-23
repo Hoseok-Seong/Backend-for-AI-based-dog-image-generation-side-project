@@ -45,12 +45,6 @@ public enum DogAttributes {
     TAIL_STRAIGHT("Straight", "곧은"),
     TAIL_BUSHY("Bushy", "털이 많은"),
 
-    // Expression
-    EXPRESSION_HAPPY("Happy", "행복한"),
-    EXPRESSION_SAD("Sad", "슬픈"),
-    EXPRESSION_ALERT("Alert", "경계하는"),
-    EXPRESSION_RELAXED("Relaxed", "편안한"),
-
     // Pose
     POSE_SITTING("Sitting", "앉아 있는"),
     POSE_STANDING("Standing", "서 있는"),

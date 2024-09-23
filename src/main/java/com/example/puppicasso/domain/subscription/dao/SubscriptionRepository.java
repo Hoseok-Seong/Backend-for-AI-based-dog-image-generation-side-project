@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
     @Query("SELECT s FROM Subscription s WHERE s.userId = :userId")
@@ -21,4 +22,15 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Long
         List<Subscription> result = findTopByUserIdOrderByPriceDesc(userId, pageable);
         return result.isEmpty() ? null : result.get(0);
     }
+
+    boolean existsByUserId(@Param("userId") Long userId);
+
+    @Query("SELECT s FROM Subscription s WHERE s.userId = :userId AND s.isActive = true")
+    Optional<Subscription> findActiveSubscriptionByUserId(@Param("userId") Long userId);
+
+    @Query("SELECT CASE WHEN COUNT(s) > 0 THEN TRUE ELSE FALSE END " +
+            "FROM Subscription s " +
+            "WHERE s.id = :subscriptionId " +
+            "AND (s.expirationDate < CURRENT_DATE OR s.usedGenerateCount >= s.maxGenerateCount)")
+    boolean isExpiredOrOverused(@Param("subscriptionId") Long subscriptionId);
 }
