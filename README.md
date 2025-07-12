@@ -55,9 +55,6 @@ AI 이미지 생성 요청을 수행하고, 생성된 이미지를 저장/반환
 ```http
 POST /api/models-lab/images
   - 이미지 업로드 + 사용자 설명 기반 AI 이미지 생성 요청
-
-POST /api/picture-create
-  - 사용자 맞춤 UI 생성 데이터를 제공
 ```
 
 ---
